@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "item": "helios:manus_stick"
+    },
+    "title": {
+      "translate": "advancements.helios.craft_manus_stick.title"
+    },
+    "description": {
+      "translate": "advancements.helios.craft_manus_stick.description"
+    }
+  },
+  "parent": "helios:root",
+  "criteria": {
+    "guidebook": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "helios:manus_stick"
+          }
+        ]
+      }
+    }
+  }
+}

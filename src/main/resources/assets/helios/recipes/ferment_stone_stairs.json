@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "  V",
+    " VV",
+    "VVV"
+  ],
+  "key": {
+    "V": {
+      "item": "helios:ferment_stone_brick"
+    }
+  },
+  "result": {
+    "item": "helios:ferment_stone_stairs",
+    "count": 4
+  }
+}

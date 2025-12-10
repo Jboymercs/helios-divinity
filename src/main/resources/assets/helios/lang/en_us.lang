@@ -1,0 +1,143 @@
+#Item Descriptions
+helios.desc.material_desc=Crafting Material
+
+tile.manus_altar.name=Manus Altar
+tile.ferment_stone_brick.name=Ferment Stonebricks
+tile.ferment_pillar.name=Ferment Pillar
+tile.manus_altar_extension.name=Extended Manus Altar
+tile.ferment_smooth.name=Ferment Smooth Brick
+tile.ferment_stone_wall.name=Ferment Stonebrick Wall
+tile.ferment_stone_stairs.name=Ferment Stonebrick Stairs
+tile.ferment_slab_half.name=Ferment Stonebrick Slab
+tile.ferment_slab_double.name=Doubled Ferment Stonebrick Slab
+tile.manus_block.name=Goopy Manus Block
+tile.manus_debris_0.name=Goopy Manus Debris
+tile.manus_debris_1.name=Goopy Manus Debris
+tile.manus_debris_2.name=Goopy Manus Debris
+tile.manus_debris_3.name=Goopy Manus Debris
+tile.remnant_cycler.name=Remnant Cycler
+tile.manus_grass.name=Manus Growth
+tile.manus_vines.name=Manus Sprout
+tile.farm_manus_vines.name=Blooming Manus Sprout
+tile.champion_head.name=Nameless Champion's Head
+
+entity.manus_avaritia.name=Manus Avaritia
+entity.manus_minion.name=Manus Minion
+entity.apostle_hand.name=Apostolus Manus
+entity.god_beam.name=Apostolus's Touch
+entity.greed_hand.name=Greed's Touch
+entity.nameless_champion.name=Nameless Champion
+entity.champion_aoe.name=Champion's Spawn
+entity.champion_tracking_orb.name=Champion Tracking Orb
+entity.champion_orb.name=Champion Orb
+entity.champion_helmet.name=Champion's Helmet
+
+item.manus_goop.name=Manus Goop
+item.manus_stick.name=Goop Covered Stick
+item.invisible.name=Invisible Item
+item.manus_core.name=Grafted Core
+item.hemoglephin.name=Hemoglephin
+item.manus_finger.name=Great Finger
+item.manus_brain.name=Depths Brain
+item.manus_shield.name=Finger Shield
+item.scroll_of_greed.name=Scroll of Living Greed
+item.manus_sword.name=Manus Goop Covered Sword
+item.great_finger.name=The Great Finger
+item.manus_helmet.name=Manus Helmet
+item.manus_chestplate.name=Manus Chestplate
+item.manus_boots.name=Manus Boots
+item.staga_fruit.name=Staga Fruit
+item.tracking_orb.name=Champion Projectile
+item.champion_spear.name=Nameless Champion's Spear
+item.champion_locator.name=Trinket of Destiny
+item.greed_compass.name=Compass of Fate
+item.hand_trinket.name=Trinket of the Hand
+
+itemGroup.helios_divinity=Helios Divinity
+helios.desc.manus_shield_name=Finger Shield
+
+helios.no_structure=There is no current structure within the search radius
+helios.within_bounds=You are within the radius of the structure, item locator resetting
+
+helios.low_greed=The thought seems to be distant.
+helios.mid_greed=It is slowly crawling in the back of your mind.
+helios.high_greed=It awaits your downfall soon.
+helios.very_high_greed=The end is nigh.
+
+potion.helios.manus_greed=Greedy
+potion.helios.stagnant=Stagnation
+effect.helios.manus_greed=Greedy
+effect.helios.stagnant=Stagnation
+
+effect.helios.manus_greed.0.desc=Adds to a counter and consuming too much will cause the target to meet the grave.
+effect.helios.stagnant.0.desc=Disallows from Greed being applied while active.
+
+potion.effect.potionGreedy=Potion of Greed
+splash_potion.effect.potionGreedy=Splash Potion of Greed
+lingering_potion.effect.potionGreedy=Lingering Potion of Greed
+tipped_arrow.effect.potionGreedy=Arrow of Greed
+potion.effect.potionStagnation=Potion of Stagnation
+splash_potion.effect.potionStagnation=Splash Potion of Stagnation
+lingering_potion.effect.potionStagnation=Lingering Potion of Stagnation
+tipped_arrow.effect.potionStagnation=Arrow of Stagnation
+
+helios.desc.remnant_cycler_desc=Slaying nearby entities will charge this plant and heal nearby Manus Avaritias and Apostolus Avaritias in the night time.
+helios.desc.manus_shield_desc=Blocking attacks hurts entities, however this shield will exhaust after a few times of doing it.
+helios.desc.manus_sword_desc=Right clicking causes an AOE that takes away 25 percent health from mobs near you to a max of 15 damage at the cost of 10 Hunger. Additionally attacking non-undead entities can heal hunger randomly.
+helios.desc.scroll_desc=When used it will take away half health of mobs in a short radius around you, with the max of 25 damage and at the cost of 5 Hunger.
+helios.desc.great_finger_desc=Right clicking will strike the finger forward, damaging mobs in its radius along with giving them Slowness. Sneaking will destroy ground blocks.
+helios.desc.manus_armor_desc=Full set bonus gives 25 percent chance the armor will reduce a third of incoming damage while damaging the armor more. Additionally have a chance of giving nearby mobs Weakness, with the chance lowering the more Greed you have.
+helios.desc.staga_fruit_desc=Applies Night Vision and as well keeps you from gaining greed while Stagnation is active.
+helios.desc.champion_head_desc=Show off a great feat or utilize it in summoning the Apostolus Manus.
+helios.desc.champion_spear_desc=Right click to dash and strike your spear. Shift right click to summon a AOE around you.
+helios.desc.manus_altar_extension_desc=When 8 are placed around a Manus Avaritia along with a Champion's Head. Something great will happen...
+helios.desc.champion_locator_desc=In order to bring forth your destiny you must follow where this trinket leads you...
+helios.desc.greed_compass_desc=Right clicking will show you how high your Greed Counter is.
+helios.desc.hand_trinket_desc=15 percent chance when hurt by a mob that is not a boss, they will be damaged based on how high your health is. Scales with your Max Health.
+
+#Death Messages
+death.attack.helios:helios=%1$s succumbed to the void
+death.attack.helios:mobHelios=%1$s was killed by a %2$s
+death.attack.helios:playerHelios=%1$s was killed by %2$s
+death.attack.helios:thrownHelios=%1$s was pummeled to death by a %2$s
+death.attack.helios:explosionHelios=%1$s was blown up
+death.attack.helios:explosionHelios.player=%1$s was blown up while fighting a %2$s
+death.attack.helios:magicHelios=%1$s was magicked by a %2$s
+
+
+#Advancements
+advancements.helios.root.title=Helios Divinity
+advancements.helios.root.description=Search for a small tower where a hand is in the middle of it. Place a block of valuable material near it.
+
+#Craft Manus Goop
+advancements.helios.craft_manus_goop.title=The Descent Begins
+advancements.helios.craft_manus_goop.description=Give a Iron Ingot to a Manus Avaritia.
+
+#Craft Grafted Core
+advancements.helios.craft_manus_core.title=Hotter than Hell
+advancements.helios.craft_manus_core.description=Give a Blaze Rod to a Manus Avaritia.
+
+#Craft Goopy Stick
+advancements.helios.craft_manus_stick.title=The Other World
+advancements.helios.craft_manus_stick.description=Give Coal to a Manus Avaritia.
+
+#Craft Manus Finger
+advancements.helios.craft_manus_finger.title=Destined to the Point
+advancements.helios.craft_manus_finger.description=Give a Gold Ingot to a Manus Avaritia.
+
+#Craft Hemoglephin
+advancements.helios.craft_hemoglephin.title=Really Goopy Stuff
+advancements.helios.craft_hemoglephin.description=Give a Diamond to a Manus Avaritia.
+
+#Craft Manus Brains
+advancements.helios.craft_manus_brain.title=The Prime Trade
+advancements.helios.craft_manus_brain.description=Give a Emerald to a Manus Avaritia.
+
+#Craft Champion Locator
+advancements.helios.craft_champion_locator.title=The Quest
+advancements.helios.craft_champion_locator.description=Give a Ender Pearl to a Manus Avaritia.
+
+#Kill Nameless Champion
+advancements.helios.kill_nameless_champion.title=The Chosen One
+advancements.helios.kill_nameless_champion.description=Kill the Nameless Champion.
+

@@ -1,0 +1,21 @@
+{
+  "display": {
+    "icon": {
+      "item": "helios:champion_locator"
+    },
+    "title": {
+      "translate": "advancements.helios.root.title"
+    },
+    "description": {
+      "translate": "advancements.helios.root.description"
+    },
+    "background": "helios:textures/blocks/ferment_stone_brick.png",
+    "show_toast": true,
+    "announce_to_chat": false
+  },
+  "criteria": {
+    "tick": {
+      "trigger": "minecraft:tick"
+    }
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "V",
+    "V"
+  ],
+  "key": {
+    "V": {
+      "item": "helios:ferment_slab_half",
+      "data": 0
+    }
+  },
+  "result": {
+    "item": "helios:ferment_pillar",
+    "count": 1
+  }
+}

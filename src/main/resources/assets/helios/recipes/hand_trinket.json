@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "XXX",
+    "XVR",
+    " B "
+  ],
+  "key": {
+    "R": {
+      "item": "helios:manus_goop"
+    },
+    "X": {
+      "item": "helios:manus_finger"
+    },
+    "V": {
+      "item": "helios:manus_brain"
+    },
+    "B": {
+      "item": "helios:manus_core"
+    }
+  },
+  "result": {
+    "item": "helios:hand_trinket"
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "parent": "block/half_slab",
+  "textures":
+  {
+    "bottom": "helios:blocks/ferment_stone_brick",
+    "top": "helios:blocks/ferment_stone_brick",
+    "side": "helios:blocks/ferment_stone_brick"
+  }
+}

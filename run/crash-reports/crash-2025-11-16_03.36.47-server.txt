@@ -1,0 +1,97 @@
+---- Minecraft Crash Report ----
+// Surprise! Haha. Well, this is awkward.
+
+Time: 11/16/25 3:36 AM
+Description: Ticking memory connection
+
+java.lang.NullPointerException: Ticking memory connection
+	at com.unseen.helios.capability.CapabilityPlayerGreed$Provider.getCapability(CapabilityPlayerGreed.java:78)
+	at net.minecraftforge.common.capabilities.CapabilityDispatcher.getCapability(CapabilityDispatcher.java:108)
+	at net.minecraft.entity.Entity.getCapability(Entity.java:3121)
+	at net.minecraft.entity.EntityLivingBase.getCapability(EntityLivingBase.java:2960)
+	at net.minecraft.entity.player.EntityPlayer.getCapability(EntityPlayer.java:2682)
+	at com.unseen.helios.util.PlayerGreedUtils.getCapability(PlayerGreedUtils.java:28)
+	at com.unseen.helios.events.EventPlayerGreed.onPlayerLoggedIn(EventPlayerGreed.java:28)
+	at net.minecraftforge.fml.common.eventhandler.ASMEventHandler_20_EventPlayerGreed_onPlayerLoggedIn_PlayerLoggedInEvent.invoke(.dynamic)
+	at net.minecraftforge.fml.common.eventhandler.ASMEventHandler.invoke(ASMEventHandler.java:90)
+	at net.minecraftforge.fml.common.eventhandler.EventBus.post(EventBus.java:182)
+	at net.minecraftforge.fml.common.FMLCommonHandler.firePlayerLoggedIn(FMLCommonHandler.java:575)
+	at net.minecraft.server.management.PlayerList.initializeConnectionToPlayer(PlayerList.java:219)
+	at net.minecraftforge.fml.common.network.handshake.NetworkDispatcher.completeServerSideConnection(NetworkDispatcher.java:255)
+	at net.minecraftforge.fml.common.network.handshake.NetworkDispatcher.access$100(NetworkDispatcher.java:72)
+	at net.minecraftforge.fml.common.network.handshake.NetworkDispatcher$1.update(NetworkDispatcher.java:205)
+	at net.minecraft.network.NetworkManager.processReceivedPackets(NetworkManager.java:285)
+	at net.minecraft.network.NetworkSystem.networkTick(NetworkSystem.java:180)
+	at net.minecraft.server.MinecraftServer.updateTimeLightAndEntities(MinecraftServer.java:790)
+	at net.minecraft.server.MinecraftServer.tick(MinecraftServer.java:668)
+	at net.minecraft.server.integrated.IntegratedServer.tick(IntegratedServer.java:185)
+	at net.minecraft.server.MinecraftServer.run(MinecraftServer.java:526)
+	at java.lang.Thread.run(Thread.java:750)
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- Head --
+Thread: Server thread
+Stacktrace:
+	at com.unseen.helios.capability.CapabilityPlayerGreed$Provider.getCapability(CapabilityPlayerGreed.java:78)
+	at net.minecraftforge.common.capabilities.CapabilityDispatcher.getCapability(CapabilityDispatcher.java:108)
+	at net.minecraft.entity.Entity.getCapability(Entity.java:3121)
+	at net.minecraft.entity.EntityLivingBase.getCapability(EntityLivingBase.java:2960)
+	at net.minecraft.entity.player.EntityPlayer.getCapability(EntityPlayer.java:2682)
+	at com.unseen.helios.util.PlayerGreedUtils.getCapability(PlayerGreedUtils.java:28)
+	at com.unseen.helios.events.EventPlayerGreed.onPlayerLoggedIn(EventPlayerGreed.java:28)
+	at net.minecraftforge.fml.common.eventhandler.ASMEventHandler_20_EventPlayerGreed_onPlayerLoggedIn_PlayerLoggedInEvent.invoke(.dynamic)
+	at net.minecraftforge.fml.common.eventhandler.ASMEventHandler.invoke(ASMEventHandler.java:90)
+	at net.minecraftforge.fml.common.eventhandler.EventBus.post(EventBus.java:182)
+	at net.minecraftforge.fml.common.FMLCommonHandler.firePlayerLoggedIn(FMLCommonHandler.java:575)
+	at net.minecraft.server.management.PlayerList.initializeConnectionToPlayer(PlayerList.java:219)
+	at net.minecraftforge.fml.common.network.handshake.NetworkDispatcher.completeServerSideConnection(NetworkDispatcher.java:255)
+	at net.minecraftforge.fml.common.network.handshake.NetworkDispatcher.access$100(NetworkDispatcher.java:72)
+	at net.minecraftforge.fml.common.network.handshake.NetworkDispatcher$1.update(NetworkDispatcher.java:205)
+	at net.minecraft.network.NetworkManager.processReceivedPackets(NetworkManager.java:285)
+
+-- Ticking connection --
+Details:
+	Connection: net.minecraft.network.NetworkManager@4f1a49b
+Stacktrace:
+	at net.minecraft.network.NetworkSystem.networkTick(NetworkSystem.java:180)
+	at net.minecraft.server.MinecraftServer.updateTimeLightAndEntities(MinecraftServer.java:790)
+	at net.minecraft.server.MinecraftServer.tick(MinecraftServer.java:668)
+	at net.minecraft.server.integrated.IntegratedServer.tick(IntegratedServer.java:185)
+	at net.minecraft.server.MinecraftServer.run(MinecraftServer.java:526)
+	at java.lang.Thread.run(Thread.java:750)
+
+-- System Details --
+Details:
+	Minecraft Version: 1.12.2
+	Operating System: Windows 10 (amd64) version 10.0
+	Java Version: 1.8.0_333, BellSoft
+	Java VM Version: OpenJDK 64-Bit Server VM (mixed mode), BellSoft
+	Memory: 1347880328 bytes (1285 MB) / 2071461888 bytes (1975 MB) up to 7568621568 bytes (7218 MB)
+	JVM Flags: 0 total; 
+	IntCache: cache: 1, tcache: 1, allocated: 12, tallocated: 94
+	FML: MCP 9.42 Powered by Forge 14.23.5.2860 11 mods loaded, 11 mods active
+	States: 'U' = Unloaded 'L' = Loaded 'C' = Constructed 'H' = Pre-initialized 'I' = Initialized 'J' = Post-initialized 'A' = Available 'D' = Disabled 'E' = Errored
+
+	| State  | ID        | Version      | Source                                                     | Signature                                |
+	|:------ |:--------- |:------------ |:---------------------------------------------------------- |:---------------------------------------- |
+	| LCHIJA | minecraft | 1.12.2       | minecraft.jar                                              | None                                     |
+	| LCHIJA | mcp       | 9.42         | minecraft.jar                                              | None                                     |
+	| LCHIJA | FML       | 8.0.99.99    | forge-1.12.2-14.23.5.2860_mapped_stable_39-1.12-recomp.jar | None                                     |
+	| LCHIJA | forge     | 14.23.5.2860 | forge-1.12.2-14.23.5.2860_mapped_stable_39-1.12-recomp.jar | None                                     |
+	| LCHIJA | geckolib3 | 3.0.30       | geckolib-forge-1.12.2-3.0.31_mapped_stable_39-1.12.jar     | None                                     |
+	| LCHIJA | bookshelf | 2.3.590      | Bookshelf-1.12.2-2.3.590 (1).jar                           | d476d1b22b218a10d845928d1665d45fce301b27 |
+	| LCHIJA | caliper   | 1.1.46       | caliper-266824-2810222_mapped_stable_39-1.12.jar           | None                                     |
+	| LCHIJA | jei       | 4.25.0       | had-enough-items-557549-4571247_mapped_stable_39-1.12.jar  | None                                     |
+	| LCHIJA | helios    | 0.0.1        | helios-1.12.2-0.0.1.jar                                    | None                                     |
+	| LCHIJA | waila     | 1.8.26       | Hwyla-1.8.26-B41_1.12.2.jar                                | None                                     |
+	| LCHIJA | worldedit | 6.1.10       | worldedit-forge-mc1.12.2-6.1.10-dist.jar                   | None                                     |
+
+	Loaded coremods (and transformers): 
+	GL info: ~~ERROR~~ RuntimeException: No OpenGL context found in the current thread.
+	Profiler Position: N/A (disabled)
+	Player Count: 1 / 8; [EntityPlayerMP['Player62'/1127, l='GREED', x=-46.50, y=71.00, z=63.50]]
+	Type: Integrated Server (map_client.txt)
+	Is Modded: Definitely; Client brand changed to 'fml,forge'

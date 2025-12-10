@@ -1,0 +1,480 @@
+{
+  "entity.apostle.idle": {
+    "category": "entity",
+    "subtitle": "entity.apostle.idle",
+    "sounds": [
+      {
+        "name": "helios:entity/apostle/idle1",
+        "stream": false
+      },
+      {
+        "name": "helios:entity/apostle/idle2",
+        "stream": false
+      },
+      {
+        "name": "helios:entity/apostle/idle3",
+        "stream": false
+      },
+      {
+        "name": "helios:entity/apostle/idle4",
+        "stream": false
+      }
+    ]
+  },
+  "entity.apostle.hurt": {
+    "category": "entity",
+    "subtitle": "entity.apostle.hurt",
+    "sounds": [
+      {
+        "name": "helios:entity/apostle/hurt1",
+        "stream": false
+      },
+      {
+        "name": "helios:entity/apostle/hurt2",
+        "stream": false
+      },
+      {
+        "name": "helios:entity/apostle/hurt3",
+        "stream": false
+      },
+      {
+        "name": "helios:entity/apostle/hurt4",
+        "stream": false
+      }
+    ]
+  },
+  "entity.apostle.cast": {
+    "category": "entity",
+    "subtitle": "entity.apostle.cast",
+    "sounds": [
+      {
+        "name": "helios:entity/apostle/cast",
+        "stream": false
+      }
+    ]
+  },
+  "entity.apostle.cast_impact": {
+    "category": "entity",
+    "subtitle": "entity.apostle.cast_impact",
+    "sounds": [
+      {
+        "name": "helios:entity/apostle/cast_impact",
+        "stream": false
+      }
+    ]
+  },
+  "entity.apostle.slam": {
+    "category": "entity",
+    "subtitle": "entity.apostle.slam",
+    "sounds": [
+      {
+        "name": "helios:entity/apostle/slam",
+        "stream": false
+      }
+    ]
+  },
+  "entity.apostle.summon": {
+    "category": "entity",
+    "subtitle": "entity.apostle.summon",
+    "sounds": [
+      {
+        "name": "helios:entity/apostle/summon",
+        "stream": false
+      }
+    ]
+  },
+  "entity.util.block": {
+    "category": "entity",
+    "subtitle": "entity.util.shield_block",
+    "sounds": [
+      {
+        "name": "helios:entity/util/block",
+        "stream": false
+      }
+    ]
+  },
+  "entity.util.scroll_cast": {
+    "category": "entity",
+    "subtitle": "entity.util.scroll_cast",
+    "sounds": [
+      {
+        "name": "helios:entity/util/cast_scroll",
+        "stream": false
+      }
+    ]
+  },
+  "entity.util.sword_cast": {
+    "category": "entity",
+    "subtitle": "entity.util.sword_cast",
+    "sounds": [
+      {
+        "name": "helios:entity/util/cast_sword",
+        "stream": false
+      }
+    ]
+  },
+  "entity.hand.awaken": {
+    "category": "entity",
+    "subtitle": "entity.hand.awaken",
+    "sounds": [
+      {
+        "name": "helios:entity/hand/awaken",
+        "stream": false
+      }
+    ]
+  },
+  "entity.hand.sleep": {
+    "category": "entity",
+    "subtitle": "entity.hand.sleep",
+    "sounds": [
+      {
+        "name": "helios:entity/hand/sleep",
+        "stream": false
+      }
+    ]
+  },
+  "entity.hand.transform": {
+    "category": "entity",
+    "subtitle": "entity.hand.transform",
+    "sounds": [
+      {
+        "name": "helios:entity/hand/transform",
+        "stream": false
+      }
+    ]
+  },
+  "entity.hand.trade": {
+    "category": "entity",
+    "subtitle": "entity.hand.trade",
+    "sounds": [
+      {
+        "name": "helios:entity/hand/trade",
+        "stream": false
+      }
+    ]
+  },
+  "entity.hand.trade_done": {
+    "category": "entity",
+    "subtitle": "entity.hand.trade_done",
+    "sounds": [
+      {
+        "name": "helios:entity/hand/trade_done",
+        "stream": false
+      }
+    ]
+  },
+  "entity.soul.shoot": {
+    "category": "entity",
+    "subtitle": "entity.soul.shoot",
+    "sounds": [
+      {
+        "name": "helios:entity/soul/shoot",
+        "stream": false
+      }
+    ]
+  },
+  "entity.soul.transfer": {
+    "category": "entity",
+    "subtitle": "entity.soul.transfer",
+    "sounds": [
+      {
+        "name": "helios:entity/soul/transfer",
+        "stream": false
+      }
+    ]
+  },
+  "entity.champion.movement": {
+    "category": "entity",
+    "subtitle": "entity.champion.armor",
+    "sounds": [
+      {
+        "name": "helios:entity/champion/movement1",
+        "stream": false
+      },
+      {
+        "name": "helios:entity/champion/movement2",
+        "stream": false
+      },
+      {
+        "name": "helios:entity/champion/movement3",
+        "stream": false
+      },
+      {
+        "name": "helios:entity/champion/movement4",
+        "stream": false
+      },
+      {
+        "name": "helios:entity/champion/movement5",
+        "stream": false
+      },
+      {
+        "name": "helios:entity/champion/movement6",
+        "stream": false
+      },
+      {
+        "name": "helios:entity/champion/movement7",
+        "stream": false
+      },
+      {
+        "name": "helios:entity/champion/movement8",
+        "stream": false
+      },
+      {
+        "name": "helios:entity/champion/movement9",
+        "stream": false
+      }
+    ]
+  },
+  "entity.champion.step": {
+    "category": "entity",
+    "subtitle": "entity.champion.step",
+    "sounds": [
+      {
+        "name": "helios:entity/champion/step1",
+        "stream": false
+      },
+      {
+        "name": "helios:entity/champion/step2",
+        "stream": false
+      },
+      {
+        "name": "helios:entity/champion/step3",
+        "stream": false
+      },
+      {
+        "name": "helios:entity/champion/step4",
+        "stream": false
+      }
+    ]
+  },
+  "entity.champion.hurt": {
+    "category": "entity",
+    "subtitle": "entity.champion.hurt",
+    "sounds": [
+      {
+        "name": "helios:entity/champion/hurt1",
+        "stream": false
+      },
+      {
+        "name": "helios:entity/champion/hurt2",
+        "stream": false
+      },
+      {
+        "name": "helios:entity/champion/hurt3",
+        "stream": false
+      },
+      {
+        "name": "helios:entity/champion/hurt4",
+        "stream": false
+      }
+    ]
+  },
+  "entity.champion.teleport": {
+    "category": "entity",
+    "subtitle": "entity.champion.teleport",
+    "sounds": [
+      {
+        "name": "helios:entity/champion/teleport",
+        "stream": false
+      }
+    ]
+  },
+  "entity.champion.aoe_impact": {
+    "category": "entity",
+    "subtitle": "entity.champion.aoe_impact",
+    "sounds": [
+      {
+        "name": "helios:entity/champion/aoe_impact",
+        "stream": false
+      }
+    ]
+  },
+  "entity.champion.summon_aoe": {
+    "category": "entity",
+    "subtitle": "entity.champion.summon_aoe",
+    "sounds": [
+      {
+        "name": "helios:entity/champion/cast_aoe",
+        "stream": false
+      }
+    ]
+  },
+  "entity.champion.swing": {
+    "category": "entity",
+    "subtitle": "entity.champion.swing",
+    "sounds": [
+      {
+        "name": "helios:entity/champion/swing",
+        "stream": false
+      }
+    ]
+  },
+  "entity.champion.summon": {
+    "category": "entity",
+    "subtitle": "entity.champion.summon",
+    "sounds": [
+      {
+        "name": "helios:entity/champion/summon",
+        "stream": false
+      }
+    ]
+  },
+  "entity.champion.cast_projectile": {
+    "category": "entity",
+    "subtitle": "entity.champion.cast_projectile",
+    "sounds": [
+      {
+        "name": "helios:entity/champion/cast_projectile",
+        "stream": false
+      }
+    ]
+  },
+  "entity.champion.cast_wave": {
+    "category": "entity",
+    "subtitle": "entity.champion.cast_wave",
+    "sounds": [
+      {
+        "name": "helios:entity/champion/cast_wave",
+        "stream": false
+      }
+    ]
+  },
+  "entity.champion.stomp": {
+    "category": "entity",
+    "subtitle": "entity.champion.stomp",
+    "sounds": [
+      {
+        "name": "helios:entity/champion/stomp",
+        "stream": false
+      }
+    ]
+  },
+  "entity.champion.aoe_place": {
+    "category": "entity",
+    "subtitle": "entity.champion.aoe_place",
+    "sounds": [
+      {
+        "name": "helios:entity/champion/aoe_summon",
+        "stream": false
+      }
+    ]
+  },
+  "entity.champion.suck": {
+    "category": "entity",
+    "subtitle": "entity.champion.suck",
+    "sounds": [
+      {
+        "name": "helios:entity/champion/suck",
+        "stream": false
+      }
+    ]
+  },
+  "entity.champion.dash": {
+    "category": "entity",
+    "subtitle": "entity.champion.dash",
+    "sounds": [
+      {
+        "name": "helios:entity/champion/dash",
+        "stream": false
+      }
+    ]
+  },
+  "block.goop.step": {
+    "category": "block",
+    "subtitle": "subtitles.block.generic.footsteps",
+    "sounds": [
+      {
+        "name": "helios:block/goop/step1",
+        "stream": false
+      },
+      {
+        "name": "helios:block/goop/step2",
+        "stream": false
+      },
+      {
+        "name": "helios:block/goop/step3",
+        "stream": false
+      },
+      {
+        "name": "helios:block/goop/step4",
+        "stream": false
+      }
+    ]
+  },
+  "block.goop.break": {
+    "category": "block",
+    "subtitle": "subtitles.block.generic.hit",
+    "sounds": [
+      {
+        "name": "helios:block/goop/break1",
+        "stream": false
+      },
+      {
+        "name": "helios:block/goop/break2",
+        "stream": false
+      },
+      {
+        "name": "helios:block/goop/break3",
+        "stream": false
+      },
+      {
+        "name": "helios:block/goop/break4",
+        "stream": false
+      }
+    ]
+  },
+  "block.manus_grass.break": {
+    "category": "block",
+    "subtitle": "subtitles.block.generic.hit",
+    "sounds": [
+      {
+        "name": "helios:block/manus_grass/break1",
+        "stream": false
+      },
+      {
+        "name": "helios:block/manus_grass/break2",
+        "stream": false
+      },
+      {
+        "name": "helios:block/manus_grass/break3",
+        "stream": false
+      },
+      {
+        "name": "helios:block/manus_grass/break4",
+        "stream": false
+      }
+    ]
+  },
+  "block.manus_grass.step": {
+    "category": "block",
+    "subtitle": "subtitles.block.generic.footsteps",
+    "sounds": [
+      {
+        "name": "helios:block/manus_grass/step1",
+        "stream": false
+      },
+      {
+        "name": "helios:block/manus_grass/step2",
+        "stream": false
+      },
+      {
+        "name": "helios:block/manus_grass/step3",
+        "stream": false
+      },
+      {
+        "name": "helios:block/manus_grass/step4",
+        "stream": false
+      }
+    ]
+  },
+  "music.ambient.champion": {
+    "category": "entity",
+    "subtitle": "",
+    "sounds": [
+      {
+        "name": "helios:music/champion",
+        "stream": true
+      }
+    ]
+  }
+}

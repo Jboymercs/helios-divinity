@@ -1,0 +1,6 @@
+{
+  "parent": "block/wall_side",
+  "textures": {
+    "wall": "helios:blocks/ferment_stone_brick"
+  }
+}

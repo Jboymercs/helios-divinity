@@ -1,0 +1,11 @@
+
+{
+  "parent": "block/grass",
+  "textures": {
+    "particle": "helios:blocks/ferment_stone_brick",
+    "top": "helios:blocks/manus_altar_top",
+    "side": "helios:blocks/manus_altar_side",
+    "bottom": "helios:blocks/ferment_stone_brick",
+    "overlay": "helios:blocks/manus_altar_side"
+  }
+}

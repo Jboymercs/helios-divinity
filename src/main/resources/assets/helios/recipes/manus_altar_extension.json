@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "VVV",
+    "VRV",
+    "XBX"
+  ],
+  "key": {
+    "V": {
+      "item": "helios:manus_block"
+    },
+    "X": {
+      "item": "helios:ferment_stone_brick"
+    },
+    "B": {
+      "item": "helios:hemoglephin"
+    },
+    "R": {
+      "item": "helios:manus_brain"
+    }
+  },
+  "result": {
+    "item": "helios:manus_altar_extension"
+  }
+}

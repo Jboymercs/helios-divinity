@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "RRR",
+    "VXV",
+    " V "
+  ],
+  "key": {
+    "V": {
+      "item": "helios:manus_goop"
+    },
+    "X": {
+      "item": "helios:manus_core"
+    },
+    "R": {
+      "item": "helios:manus_finger"
+    }
+  },
+  "result": {
+    "item": "helios:manus_shield"
+  }
+}

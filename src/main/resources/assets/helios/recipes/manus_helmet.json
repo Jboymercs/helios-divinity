@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "R R",
+    "VXV",
+    "V V"
+  ],
+  "key": {
+    "V": {
+      "item": "helios:manus_goop"
+    },
+    "X": {
+      "item": "helios:hemoglephin"
+    },
+    "R": {
+      "item": "helios:manus_finger"
+    }
+  },
+  "result": {
+    "item": "helios:manus_helmet"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "RRR",
+    "R V",
+    "  X"
+  ],
+  "key": {
+    "R": {
+      "item": "helios:manus_finger"
+    },
+    "X": {
+      "item": "helios:manus_stick"
+    },
+    "V": {
+      "item": "helios:manus_brain"
+    }
+  },
+  "result": {
+    "item": "helios:great_finger"
+  }
+}

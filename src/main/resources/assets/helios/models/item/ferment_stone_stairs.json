@@ -1,0 +1,7 @@
+{
+  "forge_marker": 1,
+  "parent":"helios:block/base_stairs",
+  "textures": {
+    "all": "helios:blocks/ferment_stone_brick"
+  }
+}

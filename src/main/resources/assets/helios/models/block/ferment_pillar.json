@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_column",
+  "textures": {
+    "end": "helios:blocks/ferment_pillar_top",
+    "side": "helios:blocks/ferment_pillar_side"
+  }
+}

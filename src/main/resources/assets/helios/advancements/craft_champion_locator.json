@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "item": "helios:champion_locator"
+    },
+    "title": {
+      "translate": "advancements.helios.craft_champion_locator.title"
+    },
+    "description": {
+      "translate": "advancements.helios.craft_champion_locator.description"
+    }
+  },
+  "parent": "helios:root",
+  "criteria": {
+    "guidebook": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "helios:champion_locator"
+          }
+        ]
+      }
+    }
+  }
+}

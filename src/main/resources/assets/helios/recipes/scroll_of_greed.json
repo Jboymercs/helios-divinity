@@ -1,0 +1,26 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " BV",
+    "RXR",
+    "VR "
+  ],
+  "key": {
+    "R": {
+      "item": "helios:manus_goop"
+    },
+    "X": {
+      "item": "helios:manus_stick"
+    },
+    "V": {
+      "item": "minecraft:paper"
+    },
+    "B": {
+      "item": "helios:hemoglephin"
+    }
+  },
+  "result": {
+    "item": "helios:scroll_of_greed",
+    "count": 2
+  }
+}

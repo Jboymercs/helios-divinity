@@ -1,0 +1,8 @@
+{
+  "variants": {
+    "axis=y":  { "model": "helios:ferment_pillar" },
+    "axis=z":   { "model": "helios:ferment_pillar", "x": 90 },
+    "axis=x":   { "model": "helios:ferment_pillar", "x": 90, "y": 90 },
+    "axis=none": { "model": "helios:ferment_stone_brick" }
+  }
+}

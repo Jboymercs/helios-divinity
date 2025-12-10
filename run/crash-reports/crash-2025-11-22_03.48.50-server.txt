@@ -1,0 +1,101 @@
+---- Minecraft Crash Report ----
+// Daisy, daisy...
+
+Time: 11/22/25 3:48 AM
+Description: Ticking player
+
+java.lang.IllegalArgumentException: bound must be positive
+	at java.util.Random.nextInt(Random.java:388)
+	at com.unseen.helios.events.EventPlayerGreed.onPlayerTick(EventPlayerGreed.java:87)
+	at net.minecraftforge.fml.common.eventhandler.ASMEventHandler_21_EventPlayerGreed_onPlayerTick_PlayerTickEvent.invoke(.dynamic)
+	at net.minecraftforge.fml.common.eventhandler.ASMEventHandler.invoke(ASMEventHandler.java:90)
+	at net.minecraftforge.fml.common.eventhandler.EventBus.post(EventBus.java:182)
+	at net.minecraftforge.fml.common.FMLCommonHandler.onPlayerPostTick(FMLCommonHandler.java:370)
+	at net.minecraft.entity.player.EntityPlayer.updateSize(EntityPlayer.java:378)
+	at net.minecraft.entity.player.EntityPlayer.onUpdate(EntityPlayer.java:288)
+	at net.minecraft.entity.player.EntityPlayerMP.onUpdateEntity(EntityPlayerMP.java:382)
+	at net.minecraft.network.NetHandlerPlayServer.update(NetHandlerPlayServer.java:173)
+	at net.minecraftforge.fml.common.network.handshake.NetworkDispatcher$1.update(NetworkDispatcher.java:209)
+	at net.minecraft.network.NetworkManager.processReceivedPackets(NetworkManager.java:285)
+	at net.minecraft.network.NetworkSystem.networkTick(NetworkSystem.java:180)
+	at net.minecraft.server.MinecraftServer.updateTimeLightAndEntities(MinecraftServer.java:790)
+	at net.minecraft.server.MinecraftServer.tick(MinecraftServer.java:668)
+	at net.minecraft.server.integrated.IntegratedServer.tick(IntegratedServer.java:185)
+	at net.minecraft.server.MinecraftServer.run(MinecraftServer.java:526)
+	at java.lang.Thread.run(Thread.java:750)
+
+
+A detailed walkthrough of the error, its code path and all known details is as follows:
+---------------------------------------------------------------------------------------
+
+-- Head --
+Thread: Server thread
+Stacktrace:
+	at java.util.Random.nextInt(Random.java:388)
+	at com.unseen.helios.events.EventPlayerGreed.onPlayerTick(EventPlayerGreed.java:87)
+	at net.minecraftforge.fml.common.eventhandler.ASMEventHandler_21_EventPlayerGreed_onPlayerTick_PlayerTickEvent.invoke(.dynamic)
+	at net.minecraftforge.fml.common.eventhandler.ASMEventHandler.invoke(ASMEventHandler.java:90)
+	at net.minecraftforge.fml.common.eventhandler.EventBus.post(EventBus.java:182)
+	at net.minecraftforge.fml.common.FMLCommonHandler.onPlayerPostTick(FMLCommonHandler.java:370)
+	at net.minecraft.entity.player.EntityPlayer.updateSize(EntityPlayer.java:378)
+	at net.minecraft.entity.player.EntityPlayer.onUpdate(EntityPlayer.java:288)
+
+-- Player being ticked --
+Details:
+	Entity Type: null (net.minecraft.entity.player.EntityPlayerMP)
+	Entity ID: 75
+	Entity Name: Player359
+	Entity's Exact location: 692.35, 77.00, 1206.02
+	Entity's Block location: World: (692,77,1206), Chunk: (at 4,4,6 in 43,75; contains blocks 688,0,1200 to 703,255,1215), Region: (1,2; contains chunks 32,64 to 63,95, blocks 512,0,1024 to 1023,255,1535)
+	Entity's Momentum: 0.00, -0.08, 0.00
+	Entity's Passengers: []
+	Entity's Vehicle: ~~ERROR~~ NullPointerException: null
+Stacktrace:
+	at net.minecraft.entity.player.EntityPlayerMP.onUpdateEntity(EntityPlayerMP.java:382)
+	at net.minecraft.network.NetHandlerPlayServer.update(NetHandlerPlayServer.java:173)
+	at net.minecraftforge.fml.common.network.handshake.NetworkDispatcher$1.update(NetworkDispatcher.java:209)
+	at net.minecraft.network.NetworkManager.processReceivedPackets(NetworkManager.java:285)
+
+-- Ticking connection --
+Details:
+	Connection: net.minecraft.network.NetworkManager@1e76a832
+Stacktrace:
+	at net.minecraft.network.NetworkSystem.networkTick(NetworkSystem.java:180)
+	at net.minecraft.server.MinecraftServer.updateTimeLightAndEntities(MinecraftServer.java:790)
+	at net.minecraft.server.MinecraftServer.tick(MinecraftServer.java:668)
+	at net.minecraft.server.integrated.IntegratedServer.tick(IntegratedServer.java:185)
+	at net.minecraft.server.MinecraftServer.run(MinecraftServer.java:526)
+	at java.lang.Thread.run(Thread.java:750)
+
+-- System Details --
+Details:
+	Minecraft Version: 1.12.2
+	Operating System: Windows 10 (amd64) version 10.0
+	Java Version: 1.8.0_333, BellSoft
+	Java VM Version: OpenJDK 64-Bit Server VM (mixed mode), BellSoft
+	Memory: 540378064 bytes (515 MB) / 2383937536 bytes (2273 MB) up to 7568621568 bytes (7218 MB)
+	JVM Flags: 0 total; 
+	IntCache: cache: 0, tcache: 0, allocated: 12, tallocated: 94
+	FML: MCP 9.42 Powered by Forge 14.23.5.2860 11 mods loaded, 11 mods active
+	States: 'U' = Unloaded 'L' = Loaded 'C' = Constructed 'H' = Pre-initialized 'I' = Initialized 'J' = Post-initialized 'A' = Available 'D' = Disabled 'E' = Errored
+
+	| State  | ID        | Version      | Source                                                     | Signature                                |
+	|:------ |:--------- |:------------ |:---------------------------------------------------------- |:---------------------------------------- |
+	| LCHIJA | minecraft | 1.12.2       | minecraft.jar                                              | None                                     |
+	| LCHIJA | mcp       | 9.42         | minecraft.jar                                              | None                                     |
+	| LCHIJA | FML       | 8.0.99.99    | forge-1.12.2-14.23.5.2860_mapped_stable_39-1.12-recomp.jar | None                                     |
+	| LCHIJA | forge     | 14.23.5.2860 | forge-1.12.2-14.23.5.2860_mapped_stable_39-1.12-recomp.jar | None                                     |
+	| LCHIJA | geckolib3 | 3.0.30       | geckolib-forge-1.12.2-3.0.31_mapped_stable_39-1.12.jar     | None                                     |
+	| LCHIJA | bookshelf | 2.3.590      | Bookshelf-1.12.2-2.3.590 (1).jar                           | d476d1b22b218a10d845928d1665d45fce301b27 |
+	| LCHIJA | caliper   | 1.1.46       | caliper-266824-2810222_mapped_stable_39-1.12.jar           | None                                     |
+	| LCHIJA | jei       | 4.25.0       | had-enough-items-557549-4571247_mapped_stable_39-1.12.jar  | None                                     |
+	| LCHIJA | helios    | 0.0.1        | helios-1.12.2-0.0.1.jar                                    | None                                     |
+	| LCHIJA | waila     | 1.8.26       | Hwyla-1.8.26-B41_1.12.2.jar                                | None                                     |
+	| LCHIJA | worldedit | 6.1.10       | worldedit-forge-mc1.12.2-6.1.10-dist.jar                   | None                                     |
+
+	Loaded coremods (and transformers): 
+	GL info: ~~ERROR~~ RuntimeException: No OpenGL context found in the current thread.
+	Profiler Position: N/A (disabled)
+	Player Count: 1 / 8; [EntityPlayerMP['Player359'/75, l='CreatieMpode', x=692.35, y=77.00, z=1206.02]]
+	Type: Integrated Server (map_client.txt)
+	Is Modded: Definitely; Client brand changed to 'fml,forge'

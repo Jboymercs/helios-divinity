@@ -1,0 +1,26 @@
+{
+  "display": {
+    "icon": {
+      "item": "helios:manus_brain"
+    },
+    "title": {
+      "translate": "advancements.helios.craft_manus_brain.title"
+    },
+    "description": {
+      "translate": "advancements.helios.craft_manus_brain.description"
+    }
+  },
+  "parent": "helios:root",
+  "criteria": {
+    "guidebook": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "helios:manus_brain"
+          }
+        ]
+      }
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " VX",
+    "VGV",
+    "RV "
+  ],
+  "key": {
+    "V": {
+      "item": "helios:manus_goop"
+    },
+    "X": {
+      "item": "helios:manus_core"
+    },
+    "R": {
+      "item": "helios:manus_stick"
+    },
+    "G": {
+      "item": "minecraft:iron_sword"
+    }
+  },
+  "result": {
+    "item": "helios:manus_sword"
+  }
+}

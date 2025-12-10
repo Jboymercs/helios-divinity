@@ -1,0 +1,19 @@
+[
+  {
+    "modid": "helios",
+    "name": "Helios Divinity",
+    "description": "Mod Jam Submission 2025, a mod adding some light magic and new concepts.",
+    "version": "${version}",
+    "mcversion": "${mcversion}",
+    "url": "modpage",
+    "authorList": [
+      "UnseenDontRun"
+    ],
+    "credits": "Forge Build for 1.12.2 made by The_Computerizer",
+    "logoFile": "modlogo.png",
+    "screenshots": [],
+    "dependencies": [
+      "geckolib"
+    ]
+  }
+]

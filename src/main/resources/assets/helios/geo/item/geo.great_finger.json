@@ -1,0 +1,53 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.unknown",
+				"texture_width": 64,
+				"texture_height": 64,
+				"visible_bounds_width": 2,
+				"visible_bounds_height": 5,
+				"visible_bounds_offset": [0, 1.5, 0]
+			},
+			"bones": [
+				{
+					"name": "Base",
+					"pivot": [0, 2, 2.5],
+					"rotation": [-10, 0, 0],
+					"cubes": [
+						{"origin": [-1.5, -6, 1], "size": [3, 8, 3], "uv": [24, 23]},
+						{"origin": [-2, -9, 0.5], "size": [4, 3, 4], "uv": [0, 31]}
+					]
+				},
+				{
+					"name": "FingerBase",
+					"parent": "Base",
+					"pivot": [0, 2, 2.5],
+					"cubes": [
+						{"origin": [-3, 2, -0.5], "size": [6, 10, 6], "uv": [0, 0]}
+					]
+				},
+				{
+					"name": "FingerJoint",
+					"parent": "FingerBase",
+					"pivot": [0, 12, 2.5],
+					"rotation": [17.5, 0, 0],
+					"cubes": [
+						{"origin": [-3, 12, -0.5], "size": [6, 9, 6], "inflate": 0.01, "uv": [0, 16]}
+					]
+				},
+				{
+					"name": "FingerTip",
+					"parent": "FingerJoint",
+					"pivot": [0, 21, 2.5],
+					"rotation": [37.5, 0, 0],
+					"cubes": [
+						{"origin": [-3, 21, -0.5], "size": [6, 6, 6], "uv": [24, 0]},
+						{"origin": [-2.5, 23, 3], "size": [5, 8, 3], "uv": [24, 12]}
+					]
+				}
+			]
+		}
+	]
+}

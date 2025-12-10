@@ -1,0 +1,25 @@
+{
+  "display": {
+    "icon": {
+      "item": "helios:champion_head"
+    },
+    "title": {
+      "translate": "advancements.helios.kill_nameless_champion.title"
+    },
+    "description": {
+      "translate": "advancements.helios.kill_nameless_champion.description"
+    },
+    "frame": "challenge"
+  },
+  "parent": "helios:craft_champion_locator",
+  "criteria": {
+    "Lamentor": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": {
+        "entity": {
+          "type": "helios:nameless_champion"
+        }
+      }
+    }
+  }
+}

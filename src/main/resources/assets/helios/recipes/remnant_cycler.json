@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "VRV",
+    "VXV",
+    " X "
+  ],
+  "key": {
+    "V": {
+      "item": "helios:manus_goop"
+    },
+    "X": {
+      "item": "helios:manus_stick"
+    },
+    "R": {
+      "item": "helios:manus_core"
+    }
+  },
+  "result": {
+    "item": "helios:remnant_cycler"
+  }
+}

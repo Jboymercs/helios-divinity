@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " X ",
+    "RBR",
+    " V "
+  ],
+  "key": {
+    "R": {
+      "item": "helios:manus_goop"
+    },
+    "X": {
+      "item": "helios:hemoglephin"
+    },
+    "V": {
+      "item": "helios:manus_brain"
+    },
+    "B": {
+      "item": "minecraft:compass"
+    }
+  },
+  "result": {
+    "item": "helios:greed_compass"
+  }
+}

@@ -1,0 +1,6 @@
+{
+  "variants":
+  {
+    "variant=default": { "model": "helios:ferment_stone_brick" }
+  }
+}

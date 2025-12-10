@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "V V",
+    "VXV",
+    "VVV"
+  ],
+  "key": {
+    "V": {
+      "item": "helios:manus_goop"
+    },
+    "X": {
+      "item": "helios:manus_core"
+    }
+  },
+  "result": {
+    "item": "helios:manus_chestplate"
+  }
+}

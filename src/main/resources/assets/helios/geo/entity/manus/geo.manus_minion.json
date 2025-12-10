@@ -1,0 +1,99 @@
+{
+	"format_version": "1.12.0",
+	"minecraft:geometry": [
+		{
+			"description": {
+				"identifier": "geometry.unknown",
+				"texture_width": 64,
+				"texture_height": 64,
+				"visible_bounds_width": 2,
+				"visible_bounds_height": 3.5,
+				"visible_bounds_offset": [0, 1.25, 0]
+			},
+			"bones": [
+				{
+					"name": "Ground",
+					"pivot": [0, 0, 0]
+				},
+				{
+					"name": "Torso",
+					"parent": "Ground",
+					"pivot": [0, 20, 0],
+					"cubes": [
+						{"origin": [-4, 12, -2], "size": [8, 12, 4], "uv": [0, 32]},
+						{"origin": [-4, 14, -2], "size": [8, 10, 4], "inflate": 0.2, "uv": [32, 0]}
+					]
+				},
+				{
+					"name": "Hip",
+					"parent": "Torso",
+					"pivot": [0, 12, 0]
+				},
+				{
+					"name": "LLeg",
+					"parent": "Hip",
+					"pivot": [2, 12, 0],
+					"cubes": [
+						{"origin": [1, 0, -1], "size": [2, 12, 2], "uv": [40, 26]}
+					]
+				},
+				{
+					"name": "RLeg",
+					"parent": "Hip",
+					"pivot": [-2, 12, 0],
+					"cubes": [
+						{"origin": [-3, 0, -1], "size": [2, 12, 2], "uv": [40, 26], "mirror": true}
+					]
+				},
+				{
+					"name": "LArm",
+					"parent": "Torso",
+					"pivot": [4, 23, 0],
+					"cubes": [
+						{"origin": [4, 12, -1], "size": [2, 12, 2], "uv": [40, 40]}
+					]
+				},
+				{
+					"name": "LArmShoulder",
+					"parent": "LArm",
+					"pivot": [4, 23, 0],
+					"cubes": [
+						{"origin": [3, 17, -2], "size": [4, 8, 4], "inflate": -0.5, "uv": [32, 14]},
+						{"origin": [3, 20, -2], "size": [4, 5, 4], "inflate": -0.25, "uv": [24, 32]}
+					]
+				},
+				{
+					"name": "RArm",
+					"parent": "Torso",
+					"pivot": [-4, 23, 0],
+					"cubes": [
+						{"origin": [-6, 12, -1], "size": [2, 12, 2], "uv": [40, 40], "mirror": true}
+					]
+				},
+				{
+					"name": "RArmShoulder",
+					"parent": "RArm",
+					"pivot": [-4, 23, 0],
+					"cubes": [
+						{"origin": [-7, 17, -2], "size": [4, 8, 4], "inflate": -0.5, "uv": [32, 14], "mirror": true},
+						{"origin": [-7, 20, -2], "size": [4, 5, 4], "inflate": -0.25, "uv": [24, 32], "mirror": true}
+					]
+				},
+				{
+					"name": "RHoldJoint",
+					"parent": "RArm",
+					"pivot": [-5, 13, 0]
+				},
+				{
+					"name": "Head",
+					"parent": "Torso",
+					"pivot": [0, 24, 0],
+					"cubes": [
+						{"origin": [-4, 24, -4], "size": [8, 8, 8], "uv": [0, 0]},
+						{"origin": [-4, 24, -4], "size": [8, 8, 8], "inflate": 0.3, "uv": [0, 16]}
+					]
+				}
+			]
+		}
+	]
+}
