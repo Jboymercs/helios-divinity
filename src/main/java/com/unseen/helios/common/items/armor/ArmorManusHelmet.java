@@ -3,6 +3,7 @@ package com.unseen.helios.common.items.armor;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import com.unseen.helios.Main;
+import com.unseen.helios.config.GeneralConfig;
 import com.unseen.helios.init.ModCreativeTab;
 import com.unseen.helios.init.ModItems;
 import com.unseen.helios.util.IHasModel;
@@ -90,6 +91,10 @@ public class ArmorManusHelmet extends ItemArmor implements IHasModel {
 
     @Override
     public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
-        return ModReference.MOD_ID + ":textures/models/armor/hand_helmet.png";
+        if(GeneralConfig.manus_helmet_face_overlay) {
+            return ModReference.MOD_ID + ":textures/models/armor/hand_helmet.png";
+        } else {
+            return ModReference.MOD_ID + ":textures/models/armor/hand_helmet_no_overlay.png";
+        }
     }
 }

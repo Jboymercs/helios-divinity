@@ -106,4 +106,8 @@ public class GeneralConfig {
     @Config.RequiresMcRestart
     public static int hand_trinket_cap = 0;
 
+    @Config.Name("Manus Helmet Face Overlay")
+    @Config.Comment("Should the Manus Helmet show a face overlay when equipped. This is the version where it overrides the players face.")
+    @Config.RequiresMcRestart
+    public static boolean manus_helmet_face_overlay = false;
 }

@@ -15,7 +15,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class RenderChampionHead extends TileEntitySkullRenderer {
 
     public static final RenderChampionHead INSTANCE = new RenderChampionHead();
-    private ModelChampionHelmet model = new ModelChampionHelmet();
+    private ModelChampionHead model = new ModelChampionHead();
     public static final ResourceLocation PIGLIN_TEXTURE = new ResourceLocation(ModReference.MOD_ID + ":textures/entity/champion_head.png");
 
     @Override
@@ -33,7 +33,7 @@ public class RenderChampionHead extends TileEntitySkullRenderer {
 
     public void renderPiglinHead(float x, float y, float z, EnumFacing facing, float rotationIn, int skullType, int destroyStage, float animateTicks)
     {
-        ModelChampionHelmet modelbase = this.model;
+        ModelChampionHead modelbase = this.model;
 
         if(destroyStage >= 0)
         {

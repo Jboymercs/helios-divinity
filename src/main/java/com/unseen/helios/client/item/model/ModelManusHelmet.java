@@ -26,10 +26,10 @@ public class ModelManusHelmet extends ModelBiped {
 		head = new ModelRenderer(this);
 		head.setRotationPoint(0.0F, 0.0F, 0.0F);
 		head.cubeList.add(new ModelBox(head, 0, 0, -4.0F, -8.0F, -4.0F, 8, 8, 8, 0.0F, false));
-		head.cubeList.add(new ModelBox(head, 0, 17, -4.0F, -8.0F, -4.0F, 8, 12, 8, 0.4F, false));
+		head.cubeList.add(new ModelBox(head, 0, 17, -4.0F, -8.0F, -4.0F, 8, 12, 8, 0.55F, false));
 		head.cubeList.add(new ModelBox(head, 32, 33, 3.0F, -11.0F, -1.5F, 3, 5, 3, 0.0F, false));
 		head.cubeList.add(new ModelBox(head, 36, 8, -6.0F, -11.0F, -1.5F, 3, 5, 3, 0.0F, false));
-		head.cubeList.add(new ModelBox(head, 1, 45, -4.5F, -12.0F, -4.5F, 9, 8, 9, 0.1F, false));
+		head.cubeList.add(new ModelBox(head, 1, 45, -4.5F, -12.0F, -4.5F, 9, 8, 9, 0.25F, false));
 
 		cube_r1 = new ModelRenderer(this);
 		cube_r1.setRotationPoint(-4.5F, -11.0F, 0.0F);

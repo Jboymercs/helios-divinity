@@ -32,8 +32,8 @@ submitted to any online service.
 | ColorHandlerEvent$Item                       | 1              |
 | ChunkEvent$Unload                            | 1              |
 | WorldEvent$Unload                            | 1              |
-| LivingDeathEvent                             | 1              |
 | TickEvent                                    | 1              |
+| LivingDeathEvent                             | 1              |
 | EntityJoinWorldEvent                         | 1              |
 | ItemTooltipEvent                             | 1              |
 
@@ -42,7 +42,7 @@ submitted to any online service.
 | Owner           | Method            | Location                                     | Priority | Source                      | RecieveCanceled |
 |-----------------|-------------------|----------------------------------------------|----------|-----------------------------|-----------------|
 | Waila           | renderOverlay     | mcp.mobius.waila.overlay.WailaTickHandler    | normal   | Hwyla-1.8.26-B41_1.12.2.jar | false           |
-| Helios Divinity | onRenderTickStart | com.unseen.helios.util.CameraPositionHandler | normal   | helios-1.12.2-0.0.2.jar     | false           |
+| Helios Divinity | onRenderTickStart | com.unseen.helios.util.CameraPositionHandler | normal   | helios-1.12.2-0.0.4.jar     | false           |
 
 
 ## GuiScreenEvent$InitGuiEvent$Post
@@ -61,14 +61,14 @@ submitted to any online service.
 | Owner           | Method           | Location                                  | Priority | Source                                                     | RecieveCanceled |
 |-----------------|------------------|-------------------------------------------|----------|------------------------------------------------------------|-----------------|
 | Waila           | onPlayerLoggedIn | mcp.mobius.waila.handlers.NetworkHandler  | normal   | Hwyla-1.8.26-B41_1.12.2.jar                                | false           |
+| Helios Divinity | onPlayerLoggedIn | com.unseen.helios.events.EventPlayerGreed | normal   | helios-1.12.2-0.0.4.jar                                    | false           |
 | Minecraft Forge | playerLogin      | forge                                     | normal   | forge-1.12.2-14.23.5.2860_mapped_stable_39-1.12-recomp.jar | false           |
-| Helios Divinity | onPlayerLoggedIn | com.unseen.helios.events.EventPlayerGreed | normal   | helios-1.12.2-0.0.2.jar                                    | false           |
 
 
 ## PlaySoundEvent
 | Owner           | Method      | Location                                | Priority | Source                  | RecieveCanceled |
 |-----------------|-------------|-----------------------------------------|----------|-------------------------|-----------------|
-| Helios Divinity | onMusicPlay | com.unseen.helios.events.EventBossMusic | normal   | helios-1.12.2-0.0.2.jar | false           |
+| Helios Divinity | onMusicPlay | com.unseen.helios.events.EventBossMusic | normal   | helios-1.12.2-0.0.4.jar | false           |
 
 
 ## TextureStitchEvent$Pre
@@ -80,7 +80,7 @@ submitted to any online service.
 ## LivingDropsEvent
 | Owner           | Method       | Location                               | Priority | Source                  | RecieveCanceled |
 |-----------------|--------------|----------------------------------------|----------|-------------------------|-----------------|
-| Helios Divinity | onEntityDrop | com.unseen.helios.events.EventSlainMob | normal   | helios-1.12.2-0.0.2.jar | false           |
+| Helios Divinity | onEntityDrop | com.unseen.helios.events.EventSlainMob | normal   | helios-1.12.2-0.0.4.jar | false           |
 
 
 ## ConfigChangedEvent$OnConfigChangedEvent
@@ -99,20 +99,20 @@ submitted to any online service.
 ## AttachCapabilitiesEvent
 | Owner           | Method             | Location                                  | Priority | Source                  | RecieveCanceled |
 |-----------------|--------------------|-------------------------------------------|----------|-------------------------|-----------------|
-| Helios Divinity | attachCapabilities | com.unseen.helios.events.EventPlayerGreed | normal   | helios-1.12.2-0.0.2.jar | false           |
+| Helios Divinity | attachCapabilities | com.unseen.helios.events.EventPlayerGreed | normal   | helios-1.12.2-0.0.4.jar | false           |
 
 
 ## LivingHurtEvent
 | Owner           | Method                    | Location                                    | Priority | Source                  | RecieveCanceled |
 |-----------------|---------------------------|---------------------------------------------|----------|-------------------------|-----------------|
-| Helios Divinity | afterShieldAndBeforeArmor | com.unseen.helios.events.EventShieldHandler | normal   | helios-1.12.2-0.0.2.jar | false           |
-| Helios Divinity | onPlayerWearingManus      | com.unseen.helios.events.EventPlayerGreed   | normal   | helios-1.12.2-0.0.2.jar | false           |
+| Helios Divinity | afterShieldAndBeforeArmor | com.unseen.helios.events.EventShieldHandler | normal   | helios-1.12.2-0.0.4.jar | false           |
+| Helios Divinity | onPlayerWearingManus      | com.unseen.helios.events.EventPlayerGreed   | normal   | helios-1.12.2-0.0.4.jar | false           |
 
 
 ## TickEvent$PlayerTickEvent
 | Owner           | Method       | Location                                  | Priority | Source                  | RecieveCanceled |
 |-----------------|--------------|-------------------------------------------|----------|-------------------------|-----------------|
-| Helios Divinity | onPlayerTick | com.unseen.helios.events.EventPlayerGreed | normal   | helios-1.12.2-0.0.2.jar | false           |
+| Helios Divinity | onPlayerTick | com.unseen.helios.events.EventPlayerGreed | normal   | helios-1.12.2-0.0.4.jar | false           |
 
 
 ## WailaTooltipEvent
@@ -142,16 +142,16 @@ submitted to any online service.
 ## LivingAttackEvent
 | Owner           | Method          | Location                                    | Priority | Source                  | RecieveCanceled |
 |-----------------|-----------------|---------------------------------------------|----------|-------------------------|-----------------|
-| Helios Divinity | doShieldUpdates | com.unseen.helios.events.EventShieldHandler | normal   | helios-1.12.2-0.0.2.jar | false           |
+| Helios Divinity | doShieldUpdates | com.unseen.helios.events.EventShieldHandler | normal   | helios-1.12.2-0.0.4.jar | false           |
 
 
 ## TickEvent$ClientTickEvent
 | Owner           | Method        | Location                                       | Priority | Source                                                     | RecieveCanceled |
 |-----------------|---------------|------------------------------------------------|----------|------------------------------------------------------------|-----------------|
 | Bookshelf       | onClientTick  | net.darkhax.bookshelf.Bookshelf                | normal   | Bookshelf-1.12.2-2.3.590 (1).jar                           | false           |
-| Waila           | tickClient    | mcp.mobius.waila.overlay.WailaTickHandler      | normal   | Hwyla-1.8.26-B41_1.12.2.jar                                | false           |
 | Minecraft Forge | checkSettings | net.minecraftforge.common.ForgeInternalHandler | normal   | forge-1.12.2-14.23.5.2860_mapped_stable_39-1.12-recomp.jar | false           |
-| Helios Divinity | onClientTick  | com.unseen.helios.util.CameraPositionHandler   | normal   | helios-1.12.2-0.0.2.jar                                    | false           |
+| Waila           | tickClient    | mcp.mobius.waila.overlay.WailaTickHandler      | normal   | Hwyla-1.8.26-B41_1.12.2.jar                                | false           |
+| Helios Divinity | onClientTick  | com.unseen.helios.util.CameraPositionHandler   | normal   | helios-1.12.2-0.0.4.jar                                    | false           |
 
 
 ## RenderWorldLastEvent
@@ -175,8 +175,8 @@ submitted to any online service.
 ## WorldEvent$Load
 | Owner           | Method          | Location                                       | Priority | Source                                                     | RecieveCanceled |
 |-----------------|-----------------|------------------------------------------------|----------|------------------------------------------------------------|-----------------|
-| Minecraft Forge | onDimensionLoad | net.minecraftforge.common.ForgeInternalHandler | highest  | forge-1.12.2-14.23.5.2860_mapped_stable_39-1.12-recomp.jar | false           |
 | Bookshelf       | onWorldLoaded   | net.darkhax.bookshelf.Bookshelf                | normal   | Bookshelf-1.12.2-2.3.590 (1).jar                           | false           |
+| Minecraft Forge | onDimensionLoad | net.minecraftforge.common.ForgeInternalHandler | highest  | forge-1.12.2-14.23.5.2860_mapped_stable_39-1.12-recomp.jar | false           |
 
 
 ## WorldEvent$Unload
@@ -192,16 +192,16 @@ submitted to any online service.
 | Waila     | onKeyEvent | mcp.mobius.waila.client.KeyEvent     | normal   | Hwyla-1.8.26-B41_1.12.2.jar              | false           |
 
 
-## LivingDeathEvent
-| Owner           | Method        | Location                               | Priority | Source                  | RecieveCanceled |
-|-----------------|---------------|----------------------------------------|----------|-------------------------|-----------------|
-| Helios Divinity | onPlayerDeath | com.unseen.helios.events.EventSlainMob | normal   | helios-1.12.2-0.0.2.jar | false           |
-
-
 ## TickEvent
 | Owner     | Method    | Location                                  | Priority | Source                                   | RecieveCanceled |
 |-----------|-----------|-------------------------------------------|----------|------------------------------------------|-----------------|
 | WorldEdit | tickStart | com.sk89q.worldedit.forge.ThreadSafeCache | normal   | worldedit-forge-mc1.12.2-6.1.10-dist.jar | false           |
+
+
+## LivingDeathEvent
+| Owner           | Method        | Location                               | Priority | Source                  | RecieveCanceled |
+|-----------------|---------------|----------------------------------------|----------|-------------------------|-----------------|
+| Helios Divinity | onPlayerDeath | com.unseen.helios.events.EventSlainMob | normal   | helios-1.12.2-0.0.4.jar | false           |
 
 
 ## WorldEvent$Save
