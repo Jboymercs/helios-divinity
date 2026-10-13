@@ -1,8 +1,7 @@
 package com.unseen.helios.common.entity.tileEntities;
 
 import com.google.common.collect.Lists;
-import com.unseen.helios.common.entity.entities.EntityManusAvaritia;
-import net.minecraft.entity.Entity;
+import com.unseen.helios.common.entity.entities.manus_avatiria.EntityManusAvaritia;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ITickable;
 

@@ -9,7 +9,7 @@ import com.unseen.helios.common.entity.base.IScreenShake;
 import com.unseen.helios.common.entity.base.Projectile;
 import com.unseen.helios.common.entity.base.scaling.ServerScaleUtil;
 import com.unseen.helios.common.entity.entities.boss.action.*;
-import com.unseen.helios.common.entity.entities.effects.EntityGreedHand;
+import com.unseen.helios.common.entity.entities.effects.greed_hand.EntityGreedHand;
 import com.unseen.helios.common.entity.projectile.ProjectileChampionOrb;
 import com.unseen.helios.common.entity.projectile.ProjectileTrackingOrb;
 import com.unseen.helios.config.MobConfig;
@@ -19,6 +19,7 @@ import com.unseen.helios.init.ModPotions;
 import com.unseen.helios.util.ModRand;
 import com.unseen.helios.util.ModReference;
 import com.unseen.helios.util.ModUtils;
+import mod.azure.azurelib.util.MoveAnalysis;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -48,14 +49,6 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.BossInfo;
 import net.minecraft.world.BossInfoServer;
 import net.minecraft.world.World;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.IAnimationTickable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
-import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -63,13 +56,13 @@ import java.util.*;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
 
-public class EntityNamelessChampion extends EntityHeliosMobBase implements IAnimatable, IAnimationTickable, IAttack, IScreenShake, IEntitySound {
-    private final AnimationFactory factory = new AnimationFactory(this);
+public class EntityNamelessChampion extends EntityHeliosMobBase implements IAttack, IScreenShake, IEntitySound {
     private BossInfoServer bossInfo = (new BossInfoServer(this.getDisplayName(), BossInfo.Color.PINK, BossInfo.Overlay.NOTCHED_10));
     private Consumer<EntityLivingBase> prevAttack;
     private int shakeTime = 0;
     protected int targetTrackingTimer = MobConfig.nameless_champion_reset_timer * 20;
-
+    private final MoveAnalysis moveAnalysis;
+    public final ADNamelessChampion animator = new ADNamelessChampion(this);
     //states
     private final String ANIM_IDLE = "idle";
     private final String ANIM_WALK = "walk";
@@ -89,6 +82,7 @@ public class EntityNamelessChampion extends EntityHeliosMobBase implements IAnim
     private final String ANIM_CAST_PROJECTILES = "cast_projectiles";
     private final String ANIM_TRIPLE_SLASH = "triple_slash";
     private final String ANIM_TRIPLE_STOMP = "triple_stomp";
+    private final String ANIM_SWING_BACKSTEP = "swing_backstep";
 
     private static final DataParameter<Boolean> SHAKING = EntityDataManager.createKey(EntityNamelessChampion.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> SWING = EntityDataManager.createKey(EntityNamelessChampion.class, DataSerializers.BOOLEAN);
@@ -107,6 +101,7 @@ public class EntityNamelessChampion extends EntityHeliosMobBase implements IAnim
     private static final DataParameter<Boolean> TRIPLE_STOMP = EntityDataManager.createKey(EntityNamelessChampion.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> HAD_PREVIOUS_TARGET = EntityDataManager.createKey(EntityNamelessChampion.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> DEATH_STATE = EntityDataManager.createKey(EntityNamelessChampion.class, DataSerializers.BOOLEAN);
+    private static final DataParameter<Boolean> SWING_BACKSTEP = EntityDataManager.createKey(EntityNamelessChampion.class, DataSerializers.BOOLEAN);
 
     public static DataParameter<BlockPos> SPAWN_LOCATION = EntityDataManager.createKey(EntityNamelessChampion.class, DataSerializers.BLOCK_POS);
     public static DataParameter<Boolean> SET_SPAWN_LOC = EntityDataManager.createKey(EntityNamelessChampion.class, DataSerializers.BOOLEAN);
@@ -144,6 +139,8 @@ public class EntityNamelessChampion extends EntityHeliosMobBase implements IAnim
     public boolean isDeathState() {return this.dataManager.get(DEATH_STATE);}
     public boolean isHadPreviousTarget() {return this.dataManager.get(HAD_PREVIOUS_TARGET);}
     public void setHadPreviousTarget(boolean value) {this.dataManager.set(HAD_PREVIOUS_TARGET, Boolean.valueOf(value));}
+    public boolean isSwingBackStep() {return this.dataManager.get(SWING_BACKSTEP);}
+    public void setSwingBackstep(boolean value) {this.dataManager.set(SWING_BACKSTEP, Boolean.valueOf(value));}
 
     public boolean isSetSpawnLoc() {
         return this.dataManager.get(SET_SPAWN_LOC);
@@ -166,7 +163,7 @@ public class EntityNamelessChampion extends EntityHeliosMobBase implements IAnim
         this.experienceValue = 160;
         this.setSleepMode(true);
         this.bossInfo.setVisible(false);
-
+        this.moveAnalysis = new MoveAnalysis(this);
     }
 
     public EntityNamelessChampion(World worldIn) {
@@ -176,6 +173,7 @@ public class EntityNamelessChampion extends EntityHeliosMobBase implements IAnim
         this.experienceValue = 160;
         this.setSleepMode(true);
         this.bossInfo.setVisible(false);
+        this.moveAnalysis = new MoveAnalysis(this);
     }
 
     @Override
@@ -195,6 +193,7 @@ public class EntityNamelessChampion extends EntityHeliosMobBase implements IAnim
         nbt.setBoolean("Cast_Greed", this.isCastGreed());
         nbt.setBoolean("Cast_Projectiles", this.isCastProjectiles());
         nbt.setBoolean("Triple_Stomp", this.isTripleStomp());
+        nbt.setBoolean("Swing_Backstep", this.isSwingBackStep());
         nbt.setBoolean("Triple_Slash", this.isTripleSlash());
         nbt.setBoolean("Death_State", this.isDeathState());
         nbt.setBoolean("Had_Target", this.dataManager.get(HAD_PREVIOUS_TARGET));
@@ -218,6 +217,7 @@ public class EntityNamelessChampion extends EntityHeliosMobBase implements IAnim
         this.setTransformPhase(nbt.getBoolean("Transform_Phase"));
         this.setGreedy(nbt.getBoolean("Greedy"));
         this.setStomp(nbt.getBoolean("Stomp"));
+        this.setSwingBackstep(nbt.getBoolean("Swing_Backstep"));
         this.setFlyAOE(nbt.getBoolean("Fly_Aoe"));
         this.setTripleStomp(nbt.getBoolean("Triple_Stomp"));
         this.setCastGreed(nbt.getBoolean("Cast_Greed"));
@@ -244,6 +244,7 @@ public class EntityNamelessChampion extends EntityHeliosMobBase implements IAnim
         this.dataManager.register(TRANSFORM_PHASE, Boolean.valueOf(false));
         this.dataManager.register(GREEDY, Boolean.valueOf(false));
         this.dataManager.register(TRIPLE_STOMP, Boolean.valueOf(false));
+        this.dataManager.register(SWING_BACKSTEP, Boolean.valueOf(false));
         this.dataManager.register(DEATH_STATE, Boolean.valueOf(false));
         this.dataManager.register(STOMP, Boolean.valueOf(false));
         this.dataManager.register(FLY_AOE, Boolean.valueOf(false));
@@ -337,9 +338,9 @@ public class EntityNamelessChampion extends EntityHeliosMobBase implements IAnim
                             double d0 = (this.posX - base.posX) * 0.0006;
                             double d1 = (this.posY - base.posY) * 0.0006;
                             double d2 = (this.posZ - base.posZ) * 0.0006;
-                            base.motionX += d0 * 5;
-                            base.motionY += d1 * 3;
-                            base.motionZ += d2 * 5;
+                            base.motionX += d0 * 3;
+                            base.motionY += d1 * 2;
+                            base.motionZ += d2 * 3;
                             base.velocityChanged = true;
                             //  target.addVelocity(d0 * blackholeSize, d1 * blackholeSize, d2 * blackholeSize);
                         }
@@ -413,6 +414,7 @@ public class EntityNamelessChampion extends EntityHeliosMobBase implements IAnim
         this.setSleepMode(false);
         this.lockLook = true;
         this.setIdleWake(true);
+        animator.setStateAnimation(ANIM_AWAKE);
         this.playSound(ModSoundHandler.CHAMPION_SUMMON, 1.5f, 1.0F);
 
                 this.setSpawnLocation(this.getPosition());
@@ -432,6 +434,7 @@ public class EntityNamelessChampion extends EntityHeliosMobBase implements IAnim
 
     private void doPhaseTransformation() {
         this.setTransformPhase(true);
+        animator.setStateAnimation(ANIM_PHASE_TRANSFORMATION);
         this.setImmovable(true);
         this.lockLook = true;
         addEvent(()-> this.playSound(ModSoundHandler.CHAMPION_ARMOR, 0.6f, 0.6f / (rand.nextFloat() * 0.4f + 0.2f)), 5);
@@ -472,7 +475,7 @@ public class EntityNamelessChampion extends EntityHeliosMobBase implements IAnim
         if(!this.isFightMode() && !this.isSleepMode() && !this.isIdleWake() && !this.isTransformPhase() && !this.isDeathState()) {
             double distance = Math.sqrt(distanceSq);
             double healthFac = this.getHealth() / this.getMaxHealth();
-            List<Consumer<EntityLivingBase>> attacksMelee = new ArrayList<>(Arrays.asList(swing_attack, fast_dash, overhead_swing, circle_swing, stomp_attack, cast_greed, fly_aoe_attack, cast_Projectiles, fly_triple_slash, triple_stomp_attack));
+            List<Consumer<EntityLivingBase>> attacksMelee = new ArrayList<>(Arrays.asList(swing_attack, fast_dash, overhead_swing, circle_swing, stomp_attack, cast_greed, fly_aoe_attack, cast_Projectiles, fly_triple_slash, triple_stomp_attack, swing_backstep));
             double[] weights = {
                     (swing_attack != prevAttack && distance < 8) ? 1/distance : 0, //Swing
                     (fast_dash != prevAttack) ? distance * 0.02 : 0, //Dash
@@ -483,7 +486,8 @@ public class EntityNamelessChampion extends EntityHeliosMobBase implements IAnim
                     (fly_aoe_attack != prevAttack && distance > 3 && healthFac < 0.5 && flyCooldown < 0) ? distance * 0.03 : 0, //Fly Aoe Attack 50
                     (cast_Projectiles != prevAttack && distance > 3 && healthFac < 0.75) ? distance * 0.02 : 0, //Cast Projectiles 75
                     (fly_triple_slash != prevAttack && healthFac < 0.4 && tripleSlashCooldown < 0) ? distance * 0.03 : 0, //Triple Slash 40
-                    (triple_stomp_attack != prevAttack && healthFac < 0.5 && tripleStompCooldown < 0) ? distance * 0.02 : 0 //Triple Stomp 50
+                    (triple_stomp_attack != prevAttack && healthFac < 0.5 && tripleStompCooldown < 0) ? distance * 0.02 : 0, //Triple Stomp 50
+                    (swing_backstep != prevAttack && distance < 8 && distance > 1 && healthFac < 0.75) ? 1/distance : 0 //Swing Backstep
             };
             prevAttack = ModRand.choice(attacksMelee, rand, weights).next();
             prevAttack.accept(target);
@@ -491,12 +495,80 @@ public class EntityNamelessChampion extends EntityHeliosMobBase implements IAnim
         return (this.getHealth() / this.getMaxHealth() < 0.5) ? MobConfig.nameless_champion_cooldown_two : MobConfig.nameless_champion_cooldown_one;
     }
 
+
+    private final Consumer<EntityLivingBase> swing_backstep = (target) -> {
+      this.setFightMode(true);
+      this.setSwingBackstep(true);
+      this.setImmovable(true);
+        animator.performAttack(ANIM_SWING_BACKSTEP);
+        addEvent(()-> this.playSound(ModSoundHandler.CHAMPION_ARMOR, 0.6f, 0.6f / (rand.nextFloat() * 0.4f + 0.2f)), 3);
+        addEvent(()-> this.playSound(ModSoundHandler.CHAMPION_ARMOR, 0.6f, 0.6f / (rand.nextFloat() * 0.4f + 0.2f)), 16);
+        addEvent(()-> this.playSound(ModSoundHandler.CHAMPION_ARMOR, 0.6f, 0.6f / (rand.nextFloat() * 0.4f + 0.2f)), 40);
+        addEvent(()-> this.playSound(ModSoundHandler.CHAMPION_ARMOR, 0.6f, 0.6f / (rand.nextFloat() * 0.4f + 0.2f)), 78);
+        addEvent(()-> {
+            Vec3d posSet = target.getPositionVector().subtract(this.getPositionVector()).normalize();
+            Vec3d targetedPos = target.getPositionVector().add(posSet.scale(1));
+            this.lockLook = true;
+            //  this.faceEntity(target, 180, 30);
+            addEvent(()-> {
+                this.setImmovable(false);
+                double distance = this.getPositionVector().distanceTo(targetedPos);
+                ModUtils.leapTowards(this, targetedPos, (float) (distance * 0.33),0.1F);
+                this.playSound(ModSoundHandler.CHAMPION_DASH, 1f, 1.0F);
+            }, 4);
+        }, 3);
+
+        addEvent(()-> {
+            this.setImmovable(true);
+        }, 15);
+
+        //does swing attack
+        addEvent(()-> {
+            Vec3d offset = this.getPositionVector().add(ModUtils.getRelativeOffset(this, new Vec3d(0.8, 1.2, 0)));
+            DamageSource source = ModDamageSource.builder().type(ModDamageSource.MOB).directEntity(this).build();
+            float damage =(float) (this.getAttack());
+            ModUtils.handleAreaImpact(2f, (e) -> damage, this, offset, source, 0.4f, 0, false, ModPotions.GREED, 1, 200);
+            this.playSound(ModSoundHandler.CHAMPION_SWING, 1f, 0.7f / (rand.nextFloat() * 0.4f + 0.2f));
+            this.destroyBlocksInSwing(new Vec3d(1.2, 1.2, 0), 0.9);
+            this.getNavigator().clearPath();
+            //immediately after do a dash away
+            addEvent(()-> {
+                Vec3d dirToo = this.getPositionVector().subtract(target.getPositionVector()).normalize();
+                Vec3d jumpTooPos = this.getPositionVector().add(dirToo.scale(81));
+                this.setImmovable(false);
+                ModUtils.leapTowards(this, jumpTooPos, 1.5F, 0.25F);
+                this.playSound(ModSoundHandler.CHAMPION_DASH, 1f, 1.0F);
+            }, 3);
+        }, 22);
+
+        addEvent(()-> {
+            this.lockLook = false;
+            addEvent(()-> {
+                this.setImmovable(true);
+            }, 3);
+        }, 42);
+
+        addEvent(()-> {
+           //do projectile Splay
+            new ActionProjectileSplay().performAction(this, target);
+            this.playSound(ModSoundHandler.CHAMPION_CAST_WAVE, 2f, 0.6f / (rand.nextFloat() * 0.4f + 0.2f));
+        }, 59);
+
+        addEvent(()-> {
+            this.setSwingBackstep(false);
+            this.setImmovable(false);
+            this.setFightMode(false);
+        }, 90);
+
+    };
+
     Supplier<Projectile> trackingOrbProjectile = () -> new ProjectileChampionOrb(this.world, this, (float) (this.getAttack()));
 
     private final Consumer<EntityLivingBase> fly_triple_slash = (target) -> {
         this.setTripleSlash(true);
         this.setFightMode(true);
         this.setImmovable(true);
+        animator.performAttack(ANIM_TRIPLE_SLASH);
         addEvent(()-> this.playSound(ModSoundHandler.CHAMPION_ARMOR, 0.6f, 0.6f / (rand.nextFloat() * 0.4f + 0.2f)), 6);
         addEvent(()-> this.playSound(ModSoundHandler.CHAMPION_ARMOR, 0.6f, 0.6f / (rand.nextFloat() * 0.4f + 0.2f)), 20);
         addEvent(()-> this.playSound(ModSoundHandler.CHAMPION_ARMOR, 0.6f, 0.6f / (rand.nextFloat() * 0.4f + 0.2f)), 170);
@@ -577,6 +649,7 @@ public class EntityNamelessChampion extends EntityHeliosMobBase implements IAnim
       this.setCastProjectiles(true);
       this.setFightMode(true);
       this.setImmovable(false);
+      animator.performAttack(ANIM_CAST_PROJECTILES);
         this.HoverTimeIncrease = 3;
         this.setNoGravity(true);
         this.lockLook = true;
@@ -610,6 +683,7 @@ public class EntityNamelessChampion extends EntityHeliosMobBase implements IAnim
     private final Consumer<EntityLivingBase> fly_aoe_attack = (target) -> {
       this.setFightMode(true);
       this.setFlyAOE(true);
+      animator.performAttack(ANIM_FLY_AOE);
       this.setImmovable(false);
       this.HoverTimeIncrease = 4;
         this.setNoGravity(true);
@@ -629,7 +703,7 @@ public class EntityNamelessChampion extends EntityHeliosMobBase implements IAnim
          Vec3d offset = this.getPositionVector().add(ModUtils.getRelativeOffset(this, new Vec3d(0, 1.2, 0)));
          DamageSource source = ModDamageSource.builder().type(ModDamageSource.MOB).directEntity(this).disablesShields().build();
          float damage =(float) (this.getAttack() * 1.4);
-         ModUtils.handleAreaImpact(2.75f, (e) -> damage, this, offset, source, 0.9f, 0, false);
+         ModUtils.handleAreaImpact(2.75f, (e) -> damage, this, offset, source, 0.9f, 0, false, ModPotions.GREED, 1, 400);
          this.playSound(ModSoundHandler.CHAMPION_SUMMON_AOE, 1.5f, 0.7f / (rand.nextFloat() * 0.4f + 0.2f));
          this.destroyBlocksInSwing(new Vec3d(0, 1.2, 0), 1.9);
          new ActionKnightLargeAOE().performAction(this, target);
@@ -652,6 +726,7 @@ public class EntityNamelessChampion extends EntityHeliosMobBase implements IAnim
       this.setFightMode(true);
       this.setCastGreed(true);
       this.setImmovable(true);
+      animator.performAttack(ANIM_CAST_GREED);
         this.playSound(ModSoundHandler.CHAMPION_SUCK, 3F, 1.0F);
       this.doingCast = true;
         addEvent(()-> this.playSound(ModSoundHandler.CHAMPION_ARMOR, 0.6f, 0.6f / (rand.nextFloat() * 0.4f + 0.2f)), 3);
@@ -689,6 +764,7 @@ public class EntityNamelessChampion extends EntityHeliosMobBase implements IAnim
       this.setStomp(true);
       this.setImmovable(true);
       this.setFightMode(true);
+      animator.performAttack(ANIM_STOMP);
         addEvent(()-> this.playSound(ModSoundHandler.CHAMPION_ARMOR, 0.6f, 0.6f / (rand.nextFloat() * 0.4f + 0.2f)), 5);
         addEvent(()-> this.playSound(ModSoundHandler.CHAMPION_ARMOR, 0.6f, 0.6f / (rand.nextFloat() * 0.4f + 0.2f)), 20);
       addEvent(()-> {
@@ -699,7 +775,7 @@ public class EntityNamelessChampion extends EntityHeliosMobBase implements IAnim
           Vec3d offset = this.getPositionVector().add(ModUtils.getRelativeOffset(this, new Vec3d(0.6, 1.2, 0)));
           DamageSource source = ModDamageSource.builder().type(ModDamageSource.MOB).directEntity(this).build();
           float damage =(float) (this.getAttack() * 0.75);
-          ModUtils.handleAreaImpact(1.5f, (e) -> damage, this, offset, source, 0.9f, 0, false);
+          ModUtils.handleAreaImpact(1.5f, (e) -> damage, this, offset, source, 0.9f, 0, false, ModPotions.GREED, 1, 100);
       }, 20);
 
       addEvent(()-> {
@@ -713,6 +789,7 @@ public class EntityNamelessChampion extends EntityHeliosMobBase implements IAnim
         this.setTripleStomp(true);
         this.setImmovable(true);
         this.setFightMode(true);
+        animator.performAttack(ANIM_TRIPLE_STOMP);
         addEvent(()-> this.playSound(ModSoundHandler.CHAMPION_ARMOR, 0.6f, 0.6f / (rand.nextFloat() * 0.4f + 0.2f)), 5);
         addEvent(()-> this.playSound(ModSoundHandler.CHAMPION_ARMOR, 0.6f, 0.6f / (rand.nextFloat() * 0.4f + 0.2f)), 20);
         addEvent(()-> this.playSound(ModSoundHandler.CHAMPION_ARMOR, 0.6f, 0.6f / (rand.nextFloat() * 0.4f + 0.2f)), 40);
@@ -727,7 +804,7 @@ public class EntityNamelessChampion extends EntityHeliosMobBase implements IAnim
             Vec3d offset = this.getPositionVector().add(ModUtils.getRelativeOffset(this, new Vec3d(0.6, 1.2, 0)));
             DamageSource source = ModDamageSource.builder().type(ModDamageSource.MOB).directEntity(this).build();
             float damage =(float) (this.getAttack() * 0.75);
-            ModUtils.handleAreaImpact(1.5f, (e) -> damage, this, offset, source, 0.9f, 0, false);
+            ModUtils.handleAreaImpact(1.5f, (e) -> damage, this, offset, source, 0.9f, 0, false, ModPotions.GREED, 1, 100);
         }, 20);
 
         addEvent(()-> {
@@ -738,7 +815,7 @@ public class EntityNamelessChampion extends EntityHeliosMobBase implements IAnim
             Vec3d offset = this.getPositionVector().add(ModUtils.getRelativeOffset(this, new Vec3d(0.6, 1.2, 0)));
             DamageSource source = ModDamageSource.builder().type(ModDamageSource.MOB).directEntity(this).build();
             float damage =(float) (this.getAttack() * 0.75);
-            ModUtils.handleAreaImpact(1.5f, (e) -> damage, this, offset, source, 0.9f, 0, false);
+            ModUtils.handleAreaImpact(1.5f, (e) -> damage, this, offset, source, 0.9f, 0, false, ModPotions.GREED, 1, 100);
         }, 63);
 
         addEvent(()-> {
@@ -749,7 +826,7 @@ public class EntityNamelessChampion extends EntityHeliosMobBase implements IAnim
             Vec3d offset = this.getPositionVector().add(ModUtils.getRelativeOffset(this, new Vec3d(0.6, 1.2, 0)));
             DamageSource source = ModDamageSource.builder().type(ModDamageSource.MOB).directEntity(this).build();
             float damage =(float) (this.getAttack() * 0.75);
-            ModUtils.handleAreaImpact(1.5f, (e) -> damage, this, offset, source, 0.9f, 0, false);
+            ModUtils.handleAreaImpact(1.5f, (e) -> damage, this, offset, source, 0.9f, 0, false, ModPotions.GREED, 1, 100);
         }, 105);
 
         addEvent(()-> {
@@ -764,12 +841,13 @@ public class EntityNamelessChampion extends EntityHeliosMobBase implements IAnim
       this.setDash(true);
       this.setImmovable(true);
       this.setFightMode(true);
+      animator.performAttack(ANIM_DASH);
         addEvent(()-> this.playSound(ModSoundHandler.CHAMPION_ARMOR, 0.6f, 0.6f / (rand.nextFloat() * 0.4f + 0.2f)), 5);
         addEvent(()-> this.playSound(ModSoundHandler.CHAMPION_ARMOR, 0.6f, 0.6f / (rand.nextFloat() * 0.4f + 0.2f)), 50);
 
         addEvent(()-> {
             Vec3d posSet = target.getPositionVector().subtract(this.getPositionVector()).normalize();
-            Vec3d targetedPos = target.getPositionVector().add(posSet.scale(-5));
+            Vec3d targetedPos = target.getPositionVector().add(posSet.scale(-6));
             addEvent(()-> {
                 this.setImmovable(false);
                 world.setEntityState(this, ModUtils.FOURTH_PARTICLE_BYTE);
@@ -782,7 +860,7 @@ public class EntityNamelessChampion extends EntityHeliosMobBase implements IAnim
         addEvent(()-> {
             Vec3d posSet = target.getPositionVector().subtract(this.getPositionVector()).normalize();
             Vec3d targetedPos = target.getPositionVector().add(posSet.scale(1));
-            this.faceEntity(target, 180, 30);
+          //  this.faceEntity(target, 180, 30);
             addEvent(()-> {
                 this.lockLook = true;
                 this.setImmovable(false);
@@ -796,7 +874,7 @@ public class EntityNamelessChampion extends EntityHeliosMobBase implements IAnim
             Vec3d offset = this.getPositionVector().add(ModUtils.getRelativeOffset(this, new Vec3d(1.5, 1.2, 0)));
             DamageSource source = ModDamageSource.builder().type(ModDamageSource.MOB).directEntity(this).disablesShields().build();
             float damage =(float) (this.getAttack() * 1.4);
-            ModUtils.handleAreaImpact(2.25f, (e) -> damage, this, offset, source, 0.9f, 0, false);
+            ModUtils.handleAreaImpact(2.25f, (e) -> damage, this, offset, source, 0.9f, 0, false, ModPotions.GREED, 1, 200);
             this.playSound(SoundEvents.ENTITY_PLAYER_ATTACK_SWEEP, 1.0f, 0.7f / (rand.nextFloat() * 0.4f + 0.2f));
             this.destroyBlocksInSwing(new Vec3d(1.5, 1.2, 0), 2.1);
         }, 38);
@@ -807,7 +885,7 @@ public class EntityNamelessChampion extends EntityHeliosMobBase implements IAnim
 
         addEvent(()-> {
             this.lockLook = false;
-        }, 50);
+        }, 55);
 
       addEvent(()-> {
         this.setDash(false);
@@ -821,17 +899,18 @@ public class EntityNamelessChampion extends EntityHeliosMobBase implements IAnim
       this.setCircleSwing(true);
       this.setImmovable(true);
       this.setFightMode(true);
+      animator.performAttack(ANIM_CIRCLE_SWING);
         addEvent(()-> this.playSound(ModSoundHandler.CHAMPION_ARMOR, 0.6f, 0.6f / (rand.nextFloat() * 0.4f + 0.2f)), 5);
         addEvent(()-> this.playSound(ModSoundHandler.CHAMPION_ARMOR, 0.6f, 0.6f / (rand.nextFloat() * 0.4f + 0.2f)), 50);
         addEvent(()-> {
             Vec3d posSet = target.getPositionVector().subtract(this.getPositionVector()).normalize();
-            Vec3d targetedPos = target.getPositionVector().add(posSet.scale(1));
+            Vec3d targetedPos = target.getPositionVector().add(posSet.scale(1.5));
             this.faceEntity(target, 180, 30);
             addEvent(()-> {
                 this.lockLook = true;
                 this.setImmovable(false);
                 double distance = this.getPositionVector().distanceTo(targetedPos);
-                ModUtils.leapTowards(this, targetedPos, (float) (distance * 0.33),0.1F);
+                ModUtils.leapTowards(this, targetedPos, (float) (distance * 0.29),0.1F);
                 this.playSound(ModSoundHandler.CHAMPION_DASH, 1f, 1.0F);
             }, 4);
         }, 20);
@@ -865,6 +944,7 @@ public class EntityNamelessChampion extends EntityHeliosMobBase implements IAnim
       this.setImmovable(true);
       this.setFightMode(true);
       this.setOverheadSwing(true);
+      animator.performAttack(ANIM_OVERHEAD_SWING);
         addEvent(()-> this.playSound(ModSoundHandler.CHAMPION_ARMOR, 0.6f, 0.6f / (rand.nextFloat() * 0.4f + 0.2f)), 2);
         addEvent(()-> this.playSound(ModSoundHandler.CHAMPION_ARMOR, 0.6f, 0.6f / (rand.nextFloat() * 0.4f + 0.2f)), 40);
         addEvent(()-> {
@@ -895,6 +975,7 @@ public class EntityNamelessChampion extends EntityHeliosMobBase implements IAnim
         this.setImmovable(true);
         this.setFightMode(true);
         this.setSwing(true);
+        animator.performAttack(ANIM_SWING);
         addEvent(()-> this.playSound(ModSoundHandler.CHAMPION_ARMOR, 0.6f, 0.6f / (rand.nextFloat() * 0.4f + 0.2f)), 5);
         addEvent(()-> this.playSound(ModSoundHandler.CHAMPION_ARMOR, 0.6f, 0.6f / (rand.nextFloat() * 0.4f + 0.2f)), 40);
         addEvent(()-> this.playSound(ModSoundHandler.CHAMPION_ARMOR, 0.6f, 0.6f / (rand.nextFloat() * 0.4f + 0.2f)), 80);
@@ -1013,112 +1094,19 @@ public class EntityNamelessChampion extends EntityHeliosMobBase implements IAnim
         ModUtils.destroyBlocksInAABB(box, world, this);
     }
 
+    //We want to ensure that idle and walking is still handled
+    //While making sure our other states and animations still take priority in there execution
+    public void updateAnimations() {
+        boolean isMovingOnGround = moveAnalysis.isMovingHorizontally() && this.onGround;
 
-    @Override
-    public void registerControllers(AnimationData data) {
-        data.addAnimationController(new AnimationController(this, "idle_controller", 0, this::predicateIdle));
-        data.addAnimationController(new AnimationController(this, "legs_controller", 0, this::predicateLegs));
-        data.addAnimationController(new AnimationController(this, "attack_controller", 0, this::predicateAttacks));
-        data.addAnimationController(new AnimationController(this, "states_controller", 0, this::predicateStates));
-    }
-
-    private <E extends IAnimatable> PlayState predicateStates(AnimationEvent<E> event) {
-        if(this.isIdleWake()) {
-            event.getController().setAnimation(new AnimationBuilder().playOnce(ANIM_AWAKE));
-            return PlayState.CONTINUE;
+        if(!this.isFightMode() && !this.isIdleWake() && !this.isSleepMode() && !this.isTransformPhase() && !this.isDeathState()) {
+            animator.handleIdleStates(isMovingOnGround);
         }
+
         if(this.isSleepMode()) {
-            event.getController().setAnimation(new AnimationBuilder().loop(ANIM_SLEEP));
-            return PlayState.CONTINUE;
-        }
-        if(this.isTransformPhase()) {
-            event.getController().setAnimation(new AnimationBuilder().playOnce(ANIM_PHASE_TRANSFORMATION));
-            return PlayState.CONTINUE;
-        }
-        if(this.isDeathState()) {
-            event.getController().setAnimation(new AnimationBuilder().playOnce(ANIM_DEATH));
-            return PlayState.CONTINUE;
+            animator.setStateAnimation(ANIM_SLEEP, true);
         }
 
-        return PlayState.STOP;
-    }
-
-    private <E extends IAnimatable> PlayState predicateAttacks(AnimationEvent<E> event) {
-        if(this.isFightMode() && !this.isIdleWake() && !this.isSleepMode() && !this.isTransformPhase() && !this.isDeathState()) {
-            if(this.isCircleSwing()) {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation(ANIM_CIRCLE_SWING, false));
-                return PlayState.CONTINUE;
-            }
-            if(this.isSwing()) {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation(ANIM_SWING, false));
-                return PlayState.CONTINUE;
-            }
-            if(this.isOverheadSwing()) {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation(ANIM_OVERHEAD_SWING, false));
-                return PlayState.CONTINUE;
-            }
-            if(this.isDash()) {
-                event.getController().setAnimation(new AnimationBuilder().addAnimation(ANIM_DASH, false));
-                return PlayState.CONTINUE;
-            }
-            if(this.isFlyAOE()) {
-                event.getController().setAnimation(new AnimationBuilder().playOnce(ANIM_FLY_AOE));
-                return PlayState.CONTINUE;
-            }
-            if(this.isStomp()) {
-                event.getController().setAnimation(new AnimationBuilder().playOnce(ANIM_STOMP));
-                return PlayState.CONTINUE;
-            }
-            if(this.isCastGreed()) {
-                event.getController().setAnimation(new AnimationBuilder().playOnce(ANIM_CAST_GREED));
-                return PlayState.CONTINUE;
-            }
-            if(this.isCastProjectiles()) {
-                event.getController().setAnimation(new AnimationBuilder().playOnce(ANIM_CAST_PROJECTILES));
-                return PlayState.CONTINUE;
-            }
-            if(this.isTripleSlash()) {
-                event.getController().setAnimation(new AnimationBuilder().playOnce(ANIM_TRIPLE_SLASH));
-                return PlayState.CONTINUE;
-            }
-            if(this.isTripleStomp()) {
-                event.getController().setAnimation(new AnimationBuilder().playOnce(ANIM_TRIPLE_STOMP));
-                return PlayState.CONTINUE;
-            }
-        }
-        event.getController().markNeedsReload();
-        return PlayState.STOP;
-    }
-
-    private<E extends IAnimatable> PlayState predicateIdle(AnimationEvent<E> event) {
-        if(event.getLimbSwingAmount() >= -0.09F && event.getLimbSwingAmount() <= 0.09F && !this.isFightMode() && !this.isIdleWake() && !this.isSleepMode()  && !this.isTransformPhase() && !this.isDeathState()) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation(ANIM_IDLE, true));
-            return PlayState.CONTINUE;
-        }
-        return PlayState.STOP;
-    }
-
-    private <E extends IAnimatable> PlayState predicateLegs(AnimationEvent<E> event) {
-        if(!(event.getLimbSwingAmount() >= -0.10F && event.getLimbSwingAmount() <= 0.10F) && !this.isFightMode() && !this.isIdleWake() && !this.isSleepMode()  && !this.isTransformPhase() && !this.isDeathState()) {
-            event.getController().setAnimation(new AnimationBuilder().addAnimation(ANIM_WALK, true));
-            return PlayState.CONTINUE;
-        }
-        return PlayState.STOP;
-    }
-
-    @Override
-    public AnimationFactory getFactory() {
-        return factory;
-    }
-
-    @Override
-    public void tick() {
-
-    }
-
-    @Override
-    public int tickTimer() {
-        return this.ticksExisted;
     }
 
     @Override
@@ -1205,6 +1193,7 @@ public class EntityNamelessChampion extends EntityHeliosMobBase implements IAnim
             this.clearEvents();
         }
         this.setDeathState(true);
+        animator.setStateAnimation(ANIM_DEATH);
         this.setImmovable(true);
         this.lockLook = true;
         addEvent(()-> this.playSound(ModSoundHandler.CHAMPION_ARMOR, 0.6f, 0.6f / (rand.nextFloat() * 0.4f + 0.2f)), 1);

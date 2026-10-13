@@ -124,16 +124,33 @@ public class WorldGenChampionStructure extends WorldGenerator {
             int rand = random.nextInt(Rotation.values().length);
 
             BlockPos posI = new BlockPos(chunkX * 16 + 8, 0, chunkZ * 16 + 8);
-            int y = getSurfaceHeight(worldIn, posI, 40, 200);
+            int y = getSurfaceHeight(worldIn, posI, WorldConfig.champion_grave_min_y, WorldConfig.champion_grave_max_y);
 
             //ensures theres ground somewhere within a range
-            if(y != 0) {
+            if(y != 0 && !WorldConfig.use_flying_structures) {
                 for (int i = 0; i < 4; i++) {
                     Rotation rotation = Rotation.values()[(rand + i) % Rotation.values().length];
                     components.clear();
                     BlockPos blockpos = posI.add(0, y, 0);
                     ChampionStructure structure = new ChampionStructure(worldIn, worldIn.getSaveHandler().getStructureTemplateManager(), components);
                     structure.startBuilding(blockpos, Rotation.NONE, "champion_structure");
+                    this.updateBoundingBox();
+
+                    this.valid = true;
+                    if (this.isSizeableStructure()) {
+
+                        break;
+                    }
+
+
+                }
+            } else if (WorldConfig.backup_structures_enabled) {
+                for (int i = 0; i < 4; i++) {
+                    Rotation rotation = Rotation.values()[(rand + i) % Rotation.values().length];
+                    components.clear();
+                    BlockPos blockpos = posI.add(0, WorldConfig.champion_grave_static_y, 0);
+                    ChampionStructure structure = new ChampionStructure(worldIn, worldIn.getSaveHandler().getStructureTemplateManager(), components);
+                    structure.startBuilding(blockpos.add(0, 20, 0), Rotation.NONE, "flying_champion_structure");
                     this.updateBoundingBox();
 
                     this.valid = true;
@@ -164,17 +181,6 @@ public class WorldGenChampionStructure extends WorldGenerator {
             }
 
             return 0;
-        }
-
-        private boolean validBiomeType(BiomeDictionary.Type biomesAllowed, BlockPos pos, World world) {
-            for(Biome biome : BiomeDictionary.getBiomes(biomesAllowed)) {
-                if(biome != null) {
-                    if (BiomeDictionary.hasType(world.getBiomeForCoordsBody(pos), biomesAllowed)) {
-                        return true;
-                    }
-                }
-            }
-            return false;
         }
 
         @Override

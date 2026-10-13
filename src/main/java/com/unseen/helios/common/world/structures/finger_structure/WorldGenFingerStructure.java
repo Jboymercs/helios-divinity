@@ -122,16 +122,33 @@ public class WorldGenFingerStructure  extends WorldGenerator {
             int rand = random.nextInt(Rotation.values().length);
 
             BlockPos posI = new BlockPos(chunkX * 16 + 8, 0, chunkZ * 16 + 8);
-            int y = getSurfaceHeight(worldIn, posI, 40, 200);
+            int y = getSurfaceHeight(worldIn, posI, WorldConfig.manus_altar_min_y, WorldConfig.manus_altar_max_y);
 
             //ensures theres ground somewhere within a range
-            if(y != 0) {
+            if(y != 0 && !WorldConfig.use_flying_structures) {
                 for (int i = 0; i < 4; i++) {
                     Rotation rotation = Rotation.values()[(rand + i) % Rotation.values().length];
                     components.clear();
                     BlockPos blockpos = posI.add(0, y, 0);
                     FingerStructure structure = new FingerStructure(worldIn, worldIn.getSaveHandler().getStructureTemplateManager(), components);
                     structure.startBuilding(blockpos.add(-2, -2, -2), Rotation.NONE, "finger_structure");
+                    this.updateBoundingBox();
+
+                    this.valid = true;
+                    if (this.isSizeableStructure()) {
+
+                        break;
+                    }
+
+
+                }
+            } else if (WorldConfig.backup_structures_enabled) {
+                for (int i = 0; i < 4; i++) {
+                    Rotation rotation = Rotation.values()[(rand + i) % Rotation.values().length];
+                    components.clear();
+                    BlockPos blockpos = posI.add(0, WorldConfig.manus_altar_static_y, 0);
+                    FingerStructure structure = new FingerStructure(worldIn, worldIn.getSaveHandler().getStructureTemplateManager(), components);
+                    structure.startBuilding(blockpos.add(-4, -6, -4), Rotation.NONE, "flying_finger_structure");
                     this.updateBoundingBox();
 
                     this.valid = true;

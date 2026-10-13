@@ -61,7 +61,7 @@ public class BlockManusGoop extends BlockBase{
             }
         }
 
-        if(world.rand.nextFloat() <= (float) GeneralConfig.manus_spread_chance * 0.5 && world.rand.nextInt(6) == 0) {
+        if(world.rand.nextFloat() <= (float) GeneralConfig.manus_spread_chance * 0.8 && world.rand.nextInt(9) == 0) {
             BlockPos pos1 = pos.up();
             if(world.isAirBlock(pos1)) {
                 if(world.rand.nextInt(4) == 0) {

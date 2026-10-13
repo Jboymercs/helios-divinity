@@ -19,7 +19,7 @@ public class GeneralConfig {
     @Config.Name("Manus Goop Block Spread Chance")
     @Config.Comment("When the random chance of 0-1 goes below this value. The Manus Goop Block will try to spread itself to nearby blocks that are not Manus Blocks")
     @Config.RequiresMcRestart
-    public static double manus_spread_chance = 0.1;
+    public static double manus_spread_chance = 0.06;
 
     @Config.Name("Boss Music Volume")
     @Config.Comment("Change the volume of boss music used in the mod")

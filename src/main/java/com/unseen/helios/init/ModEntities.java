@@ -1,18 +1,16 @@
 package com.unseen.helios.init;
 
 import com.unseen.helios.Main;
-import com.unseen.helios.common.entity.entities.EntityApostleHand;
-import com.unseen.helios.common.entity.entities.EntityManusAvaritia;
-import com.unseen.helios.common.entity.entities.EntityManusMinion;
+import com.unseen.helios.common.entity.entities.apostle_hand.EntityApostleHand;
+import com.unseen.helios.common.entity.entities.manus_avatiria.EntityManusAvaritia;
 import com.unseen.helios.common.entity.entities.attacks.EntityChampionAOE;
-import com.unseen.helios.common.entity.entities.attacks.EntityGodBeam;
+import com.unseen.helios.common.entity.entities.attacks.god_beam.EntityGodBeam;
 import com.unseen.helios.common.entity.entities.boss.EntityNamelessChampion;
-import com.unseen.helios.common.entity.entities.effects.EntityGreedHand;
+import com.unseen.helios.common.entity.entities.effects.greed_hand.EntityGreedHand;
 import com.unseen.helios.common.entity.projectile.EntityChampionLocator;
 import com.unseen.helios.common.entity.projectile.ProjectileChampionOrb;
 import com.unseen.helios.common.entity.projectile.ProjectileCyclerSoul;
 import com.unseen.helios.common.entity.projectile.ProjectileTrackingOrb;
-import com.unseen.helios.common.entity.tileEntities.TileEntityChampionHead;
 import com.unseen.helios.common.entity.tileEntities.TileEntityRemnantCycler;
 import com.unseen.helios.util.ModReference;
 import net.minecraft.entity.Entity;
@@ -46,7 +44,7 @@ public class ModEntities {
         registerEntity("manus_avaritia", EntityManusAvaritia.class, ENTITY_START_ID++, 50);
         registerEntity("apostle_hand", EntityApostleHand.class, ENTITY_START_ID++, 50);
         registerEntity("god_beam", EntityGodBeam.class, ENTITY_START_ID++, 50);
-        registerEntity("manus_minion", EntityManusMinion.class, ENTITY_START_ID++, 50);
+       // registerEntity("manus_minion", EntityManusMinion.class, ENTITY_START_ID++, 50);
         registerEntity("cycler_projectile", ProjectileCyclerSoul.class, ENTITY_START_ID++, 40);
         registerEntity("greed_hand", EntityGreedHand.class, ENTITY_START_ID++, 50);
         registerEntityWithID("nameless_champion", EntityNamelessChampion.class, ENTITY_START_ID++, 50, nameless_champion);

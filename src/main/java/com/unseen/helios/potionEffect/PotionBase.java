@@ -1,5 +1,6 @@
 package com.unseen.helios.potionEffect;
 
+import com.unseen.helios.util.ModReference;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.Tessellator;
@@ -18,8 +19,10 @@ public class PotionBase extends Potion {
     public static final int ROW_SIZE = 3;
 
 
-    protected PotionBase(boolean isBadEffectIn, int liquidColorIn) {
+    protected PotionBase(String name, boolean isBadEffectIn, int liquidColorIn) {
         super(isBadEffectIn, liquidColorIn);
+        this.setPotionName("effect." + ModReference.MOD_ID + "." + name);
+        setRegistryName(name);
     }
 
     @Override

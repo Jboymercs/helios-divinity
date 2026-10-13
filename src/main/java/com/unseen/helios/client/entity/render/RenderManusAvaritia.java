@@ -1,73 +1,85 @@
 package com.unseen.helios.client.entity.render;
 
-import com.unseen.helios.client.entity.base.RenderGeoExtended;
-import com.unseen.helios.client.entity.base.layer.GeoSpecificGlow;
-import com.unseen.helios.client.entity.model.ModelManusAvaritia;
-import com.unseen.helios.common.entity.entities.EntityManusAvaritia;
+import com.unseen.helios.common.entity.entities.manus_avatiria.AnimatorManusAvaritia;
+import com.unseen.helios.common.entity.entities.manus_avatiria.EntityManusAvaritia;
 import com.unseen.helios.util.ModReference;
-import net.minecraft.block.state.IBlockState;
+import mod.azure.azurelib.model.AzBone;
+import mod.azure.azurelib.render.AzRendererPipelineContext;
+import mod.azure.azurelib.render.entity.AzEntityRenderer;
+import mod.azure.azurelib.render.entity.AzEntityRendererConfig;
+import mod.azure.azurelib.render.layer.AzAutoGlowingLayer;
+import mod.azure.azurelib.render.layer.AzBlockAndItemLayer;
+import mod.azure.azurelib.util.math.Vector3f;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import software.bernie.geckolib3.model.AnimatedGeoModel;
 
-import javax.annotation.Nullable;
+import javax.annotation.Nonnull;
+import java.util.UUID;
 
-public class RenderManusAvaritia extends RenderGeoExtended<EntityManusAvaritia> {
+public class RenderManusAvaritia extends AzEntityRenderer<EntityManusAvaritia> {
 
     private static final ResourceLocation TEXTURE = new ResourceLocation(ModReference.MOD_ID, "textures/entity/manus_avaritia.png");
     private static final ResourceLocation MODEL_RESLOC = new ResourceLocation(ModReference.MOD_ID, "geo/entity/manus/geo.manus_avaritia.json");
 
     public RenderManusAvaritia(RenderManager renderManager) {
-        super(renderManager, new ModelManusAvaritia(MODEL_RESLOC, TEXTURE, "manus_avaritia"));
-        this.addLayer(new GeoSpecificGlow<>(this, this.TEXTURE_GETTER, this.MODEL_ID_GETTER));
+        super(AzEntityRendererConfig.<EntityManusAvaritia>builder(MODEL_RESLOC, TEXTURE)
+                        .addRenderLayer(new AzAutoGlowingLayer<>())
+                        .addRenderLayer(new AzBlockAndItemLayer<UUID, EntityManusAvaritia>() {
+
+                            @Override
+                            public ItemStack itemStackForBone(AzBone bone, EntityManusAvaritia animatable) {
+                                if (bone.getName().equals(EntityManusAvaritia.TRADER_HAND.HAND)) {
+                                    return animatable.getItemFromRoyalHand(EntityManusAvaritia.TRADER_HAND.HAND);
+                                }
+
+                                return null;
+                            }
+
+                            @Override
+                            protected ItemCameraTransforms.TransformType getTransformTypeForStack(
+                                    AzBone bone,
+                                    ItemStack stack,
+                                    EntityManusAvaritia animatable
+                            ) {
+                                return ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND;
+                            }
+
+                            @Override
+                            protected void renderItemForBone(
+                                    AzRendererPipelineContext<UUID, EntityManusAvaritia> context,
+                                    AzBone bone,
+                                    ItemStack itemStack,
+                                    EntityManusAvaritia animatable
+                            ) {
+                                context.poseStack().mulPose(Vector3f.XP.rotationDegrees(-45));
+                                context.poseStack().mulPose(Vector3f.YP.rotationDegrees(0));
+                                context.poseStack().mulPose(Vector3f.ZP.rotationDegrees(0f));
+                                context.poseStack().translate(0.0D, 0D, -0.4D);
+                                context.poseStack().scale(0.6f, 0.6f, 0.6f);
+                                super.renderItemForBone(context, bone, itemStack, animatable);
+                            }
+                        })
+                        .setRenderEntry(contextPipeline -> {
+
+                            contextPipeline.animatable().updateAnimations();
+                            return contextPipeline;
+                        })
+                        .setAnimatorProvider(AnimatorManusAvaritia::new)
+                        .addRenderLayer(new AzAutoGlowingLayer<>())
+                        .setShadowRadius(1F)
+                        .build()
+                , renderManager);
     }
 
-    @Nullable
+    @Nonnull
     @Override
-    protected ItemStack getHeldItemForBone(String boneName, EntityManusAvaritia currentEntity) {
-        ItemStack stackInhand = currentEntity.getItemFromRoyalHand(EntityManusAvaritia.TRADER_HAND.getFromBoneName(boneName));
-        if(stackInhand != null) {
-            return stackInhand;
+    public ResourceLocation getEntityTexture(EntityManusAvaritia animatable) {
+        if(animatable.isSleepMode()) {
+            return new ResourceLocation(ModReference.MOD_ID, "textures/entity/manus_avaritia_sleep.png");
+        } else {
+            return new ResourceLocation(ModReference.MOD_ID, "textures/entity/manus_avaritia.png");
         }
-        return null;
-    }
-
-    @Override
-    protected ItemCameraTransforms.TransformType getCameraTransformForItemAtBone(ItemStack boneItem, String boneName) {
-        return null;
-    }
-
-    @Nullable
-    @Override
-    protected IBlockState getHeldBlockForBone(String boneName, EntityManusAvaritia currentEntity) {
-        return null;
-    }
-
-    @Override
-    protected void preRenderItem(ItemStack item, String boneName, EntityManusAvaritia currentEntity) {
-
-    }
-
-    @Override
-    protected void preRenderBlock(IBlockState block, String boneName, EntityManusAvaritia currentEntity) {
-
-    }
-
-    @Override
-    protected void postRenderItem(ItemStack item, String boneName, EntityManusAvaritia currentEntity) {
-
-    }
-
-    @Override
-    protected void postRenderBlock(IBlockState block, String boneName, EntityManusAvaritia currentEntity) {
-
-    }
-
-    @Nullable
-    @Override
-    protected ResourceLocation getTextureForBone(String boneName, EntityManusAvaritia currentEntity) {
-        return null;
     }
 }

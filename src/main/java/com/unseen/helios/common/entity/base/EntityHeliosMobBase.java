@@ -3,6 +3,7 @@ package com.unseen.helios.common.entity.base;
 import com.unseen.helios.common.entity.base.navigation.MobGroundNavigate;
 import com.unseen.helios.common.entity.base.scaling.ServerScaleUtil;
 import com.unseen.helios.util.ModUtils;
+import jdk.nashorn.internal.ir.annotations.Ignore;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.MoverType;
@@ -113,6 +114,18 @@ public abstract class EntityHeliosMobBase extends EntityMob {
     }
 
     protected boolean isNonHealableCreature = false;
+
+    @Override
+    public void onUpdate() {
+        super.onUpdate();
+
+        if(this.lockLook) {
+            this.rotationPitch = this.prevRotationPitch;
+            this.rotationYaw = this.prevRotationYaw;
+            this.rotationYawHead = this.prevRotationYawHead;
+            this.renderYawOffset = this.rotationYaw;
+        }
+    }
 
     @Override
     public void onLivingUpdate() {

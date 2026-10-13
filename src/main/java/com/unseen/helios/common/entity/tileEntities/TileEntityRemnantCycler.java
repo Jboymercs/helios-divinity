@@ -2,8 +2,8 @@ package com.unseen.helios.common.entity.tileEntities;
 
 import com.unseen.helios.Main;
 import com.unseen.helios.common.entity.base.EntityHeliosMobBase;
-import com.unseen.helios.common.entity.entities.EntityApostleHand;
-import com.unseen.helios.common.entity.entities.EntityManusAvaritia;
+import com.unseen.helios.common.entity.entities.apostle_hand.EntityApostleHand;
+import com.unseen.helios.common.entity.entities.manus_avatiria.EntityManusAvaritia;
 import com.unseen.helios.handlers.ModSoundHandler;
 import com.unseen.helios.util.ModUtils;
 import net.minecraft.block.state.IBlockState;

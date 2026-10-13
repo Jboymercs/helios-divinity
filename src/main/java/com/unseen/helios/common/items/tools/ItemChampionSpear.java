@@ -1,5 +1,6 @@
 package com.unseen.helios.common.items.tools;
 
+import com.unseen.helios.client.item.animation.ADispatcherItem;
 import com.unseen.helios.common.entity.player.ActionPlayerSummonAOE;
 import com.unseen.helios.config.GeneralConfig;
 import com.unseen.helios.handlers.ModSoundHandler;
@@ -18,28 +19,19 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.world.World;
-import software.bernie.geckolib3.core.AnimationState;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
-import software.bernie.geckolib3.core.manager.AnimationFactory;
-import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import java.util.List;
 
-public class ItemChampionSpear extends ToolSword implements IAnimatable {
+public class ItemChampionSpear extends ToolSword {
     String info_loc;
     private int playerTickDamage;
     private final String ANIM_FINGER_ATTACK = "attack";
-    private String controllerName = "attack_controller";
-    public AnimationFactory factory = new AnimationFactory(this);
+    private final ADispatcherItem animator;
 
     public ItemChampionSpear(String name, ToolMaterial material, CreativeTabs tab, String info_loc) {
         super(name, material, tab);
         this.info_loc = info_loc;
+        this.animator = new ADispatcherItem();
     }
 
     @Override
@@ -65,10 +57,8 @@ public class ItemChampionSpear extends ToolSword implements IAnimatable {
             player.addPotionEffect(new PotionEffect(ModPotions.GREED, 200, 1, false, false));
             stack.damageItem(5, player);
         } else if(!player.getCooldownTracker().hasCooldown(this)) {
-            AnimationController<?> controller = GeckoLibUtil.getControllerForStack(this.factory, stack, controllerName);
-            if(controller.getAnimationState() == AnimationState.Stopped) {
-                controller.markNeedsReload();
-                controller.setAnimation(new AnimationBuilder().addAnimation(ANIM_FINGER_ATTACK, false));
+            if(!worldIn.isRemote) {
+                animator.performItemAnimation(player, stack, false, ANIM_FINGER_ATTACK);
             }
             worldIn.playSound((EntityPlayer) null, player.posX, player.posY, player.posZ, ModSoundHandler.CHAMPION_DASH, SoundCategory.NEUTRAL, 0.75f, 0.7f / (worldIn.rand.nextFloat() * 0.4F + 0.2f));
             playerTickDamage = player.ticksExisted + 15;
@@ -115,23 +105,6 @@ public class ItemChampionSpear extends ToolSword implements IAnimatable {
 
     public void onEnemyHit(EntityLivingBase user, EntityLivingBase enemy, Vec3d rammingDir) {
         enemy.knockBack(user, 1.9F, rammingDir.x, rammingDir.z);
-    }
-
-    @Override
-    public void registerControllers(AnimationData data) {
-        AnimationController<ItemChampionSpear> controller = new AnimationController<ItemChampionSpear>(this,
-                controllerName, 5, this::predicateAttack);
-
-        data.addAnimationController(controller);
-    }
-
-    private <E extends IAnimatable> PlayState predicateAttack(AnimationEvent<E> event) {
-        return PlayState.CONTINUE;
-    }
-
-    @Override
-    public AnimationFactory getFactory() {
-        return factory;
     }
 
     public EnumRarity getRarity(ItemStack stack)

@@ -3,8 +3,7 @@ package com.unseen.helios.events;
 import com.unseen.helios.Main;
 import com.unseen.helios.capability.CapabilityPlayerGreed;
 import com.unseen.helios.common.entity.base.EntityHeliosMobBase;
-import com.unseen.helios.common.entity.entities.EntityManusAvaritia;
-import com.unseen.helios.common.entity.entities.effects.EntityGreedHand;
+import com.unseen.helios.common.entity.entities.effects.greed_hand.EntityGreedHand;
 import com.unseen.helios.config.GeneralConfig;
 import com.unseen.helios.init.ModItems;
 import com.unseen.helios.init.ModPotions;
@@ -25,7 +24,6 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
-import org.lwjgl.Sys;
 
 import java.util.List;
 import java.util.Objects;

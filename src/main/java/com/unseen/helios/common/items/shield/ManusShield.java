@@ -4,6 +4,7 @@ import com.unseen.helios.Main;
 import com.unseen.helios.config.GeneralConfig;
 import com.unseen.helios.handlers.ModSoundHandler;
 import com.unseen.helios.init.ModPotions;
+import com.unseen.helios.util.IHasModel;
 import com.unseen.helios.util.ModUtils;
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.client.util.ITooltipFlag;
@@ -22,16 +23,12 @@ import net.minecraft.util.text.translation.I18n;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.manager.AnimationData;
-import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class ManusShield extends HeliosShieldItem implements IAnimatable {
+public class ManusShield extends HeliosShieldItem implements IHasModel {
 
-    public AnimationFactory factory = new AnimationFactory(this);
     private String info_loc;
     public int hitCounter = 0;
 
@@ -107,12 +104,7 @@ public class ManusShield extends HeliosShieldItem implements IAnimatable {
     }
 
     @Override
-    public void registerControllers(AnimationData data) {
-
-    }
-
-    @Override
-    public AnimationFactory getFactory() {
-        return factory;
+    public void registerModels() {
+        Main.proxy.registerItemRenderer(this, 0, "inventory");
     }
 }

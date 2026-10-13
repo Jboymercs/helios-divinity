@@ -1,6 +1,6 @@
 package com.unseen.helios.common.entity.ai.apostle_hand;
 
-import com.unseen.helios.common.entity.entities.EntityApostleHand;
+import com.unseen.helios.common.entity.entities.apostle_hand.EntityApostleHand;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.EntityAITarget;
 

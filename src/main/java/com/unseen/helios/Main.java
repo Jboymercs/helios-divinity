@@ -5,11 +5,14 @@ import com.unseen.helios.common.entity.tileEntities.TileEntityChampionHead;
 import com.unseen.helios.common.world.structures.ModWorldGenerator;
 import com.unseen.helios.handlers.ModSoundHandler;
 import com.unseen.helios.init.ModEntities;
+import com.unseen.helios.init.ModItems;
 import com.unseen.helios.init.ModStructures;
 import com.unseen.helios.proxy.CommonProxy;
 import com.unseen.helios.util.HDLogger;
 import com.unseen.helios.util.ModReference;
 import com.unseen.helios.util.command.CommandLocateHelios;
+import mod.azure.azurelib.AzureLib;
+import mod.azure.azurelib.animation.cache.AzIdentityRegistry;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.fml.common.Mod;
@@ -22,9 +25,8 @@ import net.minecraftforge.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
-import software.bernie.geckolib3.GeckoLib;
 
-@Mod(modid = ModReference.MOD_ID, name = ModReference.NAME, version = ModReference.VERSION)
+@Mod(modid = ModReference.MOD_ID, name = ModReference.NAME, version = ModReference.VERSION, dependencies = "required-after:azurelib")
 public class Main {
 
     @SidedProxy(clientSide = ModReference.CLIENT_PROXY_CLASS, serverSide = ModReference.COMMON_PROXY_CLASS)
@@ -40,7 +42,12 @@ public class Main {
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
-        GeckoLib.initialize();
+        AzureLib.initialize();
+        AzIdentityRegistry.register(
+                ModItems.CHAMPION_SPEAR,
+                ModItems.GREAT_FINGER,
+                ModItems.MANUS_SHIELD
+        );
         //Handles Entities
         GameRegistry.registerTileEntity(TileEntityChampionHead.class, new ResourceLocation(ModReference.MOD_ID, "champion_helmet"));
         ModEntities.registerEntities();

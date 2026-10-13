@@ -15,8 +15,8 @@ public class ModPotions {
 
     private ModPotions(){}
 
-    public static PotionGreed GREED = (PotionGreed) new PotionGreed(true, 0).setRegistryName(ModReference.MOD_ID, "manus_greed");
-    public static PotionStagnant STAGNATION = (PotionStagnant) new PotionStagnant(false, 0).setRegistryName(ModReference.MOD_ID, "stagnant");
+    public static PotionGreed GREED = (PotionGreed) new PotionGreed("manus_greed",true, 0);
+    public static PotionStagnant STAGNATION = (PotionStagnant) new PotionStagnant("stagnant",false, 0);
 
     public static PotionType greedy =  new PotionType("potionGreedy", new PotionEffect[]{new PotionEffect(ModPotions.GREED, 200)}).setRegistryName("greedy");
     public static PotionType stagnation =  new PotionType("potionStagnation", new PotionEffect[]{new PotionEffect(ModPotions.STAGNATION, 200)}).setRegistryName("stagnation");

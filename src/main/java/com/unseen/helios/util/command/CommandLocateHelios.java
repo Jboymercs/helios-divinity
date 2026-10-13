@@ -169,14 +169,6 @@ public class CommandLocateHelios implements ICommand {
         }
     }
 
-    public static boolean isAllowedDimensionTooSpawnIn(int dimensionIn) {
-        if(dimensionIn == 0) {
-            return true;
-        }
-
-        return false;
-    }
-
     public static boolean isAbleToSpawnHere(BlockPos pos, World world) {
         for(BiomeDictionary.Type types : getSpawnBiomeTypes()) {
             Biome biomeCurrently = world.provider.getBiomeForCoords(pos);
@@ -185,6 +177,15 @@ public class CommandLocateHelios implements ICommand {
             }
         }
         return true;
+    }
+
+    public static boolean isAllowedDimensionTooSpawnIn(int dimensionIn) {
+        for(int i : WorldConfig.list_of_dimensions) {
+            if(i == dimensionIn)
+                return true;
+        }
+
+        return false;
     }
 
     private static List<BiomeDictionary.Type> lichTowerBiomeTypes;

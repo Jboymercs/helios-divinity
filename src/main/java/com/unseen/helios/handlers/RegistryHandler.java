@@ -10,6 +10,7 @@ import com.unseen.helios.init.ModItems;
 import com.unseen.helios.util.IHasModel;
 import com.unseen.helios.util.ModReference;
 import com.unseen.helios.util.block.AdvancedStateMap;
+import mod.azure.azurelib.render.item.AzItemRenderer;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSkull;
 import net.minecraft.block.properties.IProperty;
@@ -59,9 +60,9 @@ public class RegistryHandler {
         ModelLoader.setCustomModelResourceLocation(ModItems.MANUS_SHIELD, 0, new ModelResourceLocation(ModReference.MOD_ID + ":manus_shield", "inventory"));
         ModelLoader.setCustomModelResourceLocation(ModItems.GREAT_FINGER, 0, new ModelResourceLocation(ModReference.MOD_ID + ":great_finger", "inventory"));
         ModelLoader.setCustomModelResourceLocation(ModItems.CHAMPION_SPEAR, 0, new ModelResourceLocation(ModReference.MOD_ID + ":champion_spear", "inventory"));
-        ModItems.MANUS_SHIELD.setTileEntityItemStackRenderer(new RenderManusShield());
-        ModItems.GREAT_FINGER.setTileEntityItemStackRenderer(new RenderGreatFinger());
-        ModItems.CHAMPION_SPEAR.setTileEntityItemStackRenderer(new RenderChampionSpear());
+       // ModItems.MANUS_SHIELD.setTileEntityItemStackRenderer(new RenderManusShield());
+      //  ModItems.GREAT_FINGER.setTileEntityItemStackRenderer(new RenderGreatFinger());
+      //  ModItems.CHAMPION_SPEAR.setTileEntityItemStackRenderer(new RenderChampionSpear());
         for (Item item : ModItems.ITEMS) {
             if (item instanceof IHasModel) {
                 ((IHasModel) item).registerModels();

@@ -2,13 +2,12 @@ package com.unseen.helios.handlers;
 
 import com.unseen.helios.client.entity.render.*;
 import com.unseen.helios.common.blocks.championHead.RenderChampionHead;
-import com.unseen.helios.common.entity.entities.EntityApostleHand;
-import com.unseen.helios.common.entity.entities.EntityManusAvaritia;
-import com.unseen.helios.common.entity.entities.EntityManusMinion;
+import com.unseen.helios.common.entity.entities.apostle_hand.EntityApostleHand;
+import com.unseen.helios.common.entity.entities.manus_avatiria.EntityManusAvaritia;
 import com.unseen.helios.common.entity.entities.attacks.EntityChampionAOE;
-import com.unseen.helios.common.entity.entities.attacks.EntityGodBeam;
+import com.unseen.helios.common.entity.entities.attacks.god_beam.EntityGodBeam;
 import com.unseen.helios.common.entity.entities.boss.EntityNamelessChampion;
-import com.unseen.helios.common.entity.entities.effects.EntityGreedHand;
+import com.unseen.helios.common.entity.entities.effects.greed_hand.EntityGreedHand;
 import com.unseen.helios.common.entity.projectile.EntityChampionLocator;
 import com.unseen.helios.common.entity.projectile.ProjectileChampionOrb;
 import com.unseen.helios.common.entity.projectile.ProjectileCyclerSoul;
@@ -83,7 +82,6 @@ public class RenderHandler {
 
     public static void registerGeoEntityRenderers() {
         RenderingRegistry.registerEntityRenderingHandler(EntityManusAvaritia.class, RenderManusAvaritia::new);
-        RenderingRegistry.registerEntityRenderingHandler(EntityManusMinion.class, RenderManusMinion::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityApostleHand.class, RenderApostleHand::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityGodBeam.class, RenderGodBeam::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityGreedHand.class, RenderGreedHand::new);

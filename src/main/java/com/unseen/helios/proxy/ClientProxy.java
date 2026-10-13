@@ -1,6 +1,5 @@
 package com.unseen.helios.proxy;
 
-import com.unseen.helios.client.entity.base.util.GlowingMetadataSection;
 import com.unseen.helios.client.item.model.ModelManusHelmet;
 import com.unseen.helios.client.particle.*;
 import com.unseen.helios.events.EventBossMusic;
@@ -8,7 +7,6 @@ import com.unseen.helios.handlers.RenderHandler;
 import com.unseen.helios.init.ModItems;
 import com.unseen.helios.util.CameraPositionHandler;
 import com.unseen.helios.util.EntityMusicPlayerHelios;
-import com.unseen.helios.util.GlowingMetadataSectionSerializer;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementProgress;
 import net.minecraft.client.Minecraft;
@@ -55,7 +53,6 @@ public class ClientProxy extends CommonProxy{
         RenderHandler.registerProjectileRenderers();
         // Add custom metadataserializers
         Minecraft mc = Minecraft.getMinecraft();
-        mc.metadataSerializer.registerMetadataSectionType(new GlowingMetadataSectionSerializer(), GlowingMetadataSection.class);
         super.init();
     }
 

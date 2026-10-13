@@ -21,7 +21,7 @@ public class ActionKnightLineAOE implements IAction {
                 EntityChampionAOE bolt5 = new EntityChampionAOE(actor.world, actor);
                 Vec3d relPos5 = actor.getPositionVector().add(ModUtils.getRelativeOffset(actor, new Vec3d(finalI, 0, 0)));
                 int yVar5 = getSurfaceHeight(actor.world, new BlockPos(relPos5.x, relPos5.y, relPos5.z), (int) actor.posY - 4, (int) actor.posY + 3);
-                bolt5.setPosition(relPos5.x, yVar5, relPos5.z);
+                bolt5.setPosition(relPos5.x, relPos5.y, relPos5.z);
                 actor.world.spawnEntity(bolt5);
             }, (int) (i));
         }

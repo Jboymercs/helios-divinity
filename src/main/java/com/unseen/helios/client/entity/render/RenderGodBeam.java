@@ -1,31 +1,38 @@
 package com.unseen.helios.client.entity.render;
 
-import com.unseen.helios.client.entity.base.RenderGeoExtended;
-import com.unseen.helios.client.entity.base.layer.GeoSpecificGlow;
-import com.unseen.helios.client.entity.model.ModelApostleHand;
-import com.unseen.helios.client.entity.model.ModelGodBeam;
 import com.unseen.helios.client.entity.util.RenderUtil;
-import com.unseen.helios.common.entity.entities.attacks.EntityGodBeam;
+import com.unseen.helios.common.entity.entities.attacks.god_beam.AnimatorGodBeam;
+import com.unseen.helios.common.entity.entities.attacks.god_beam.EntityGodBeam;
 import com.unseen.helios.util.ModColors;
 import com.unseen.helios.util.ModReference;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
+import mod.azure.azurelib.render.entity.AzEntityRenderer;
+import mod.azure.azurelib.render.entity.AzEntityRendererConfig;
+import mod.azure.azurelib.render.layer.AzAutoGlowingLayer;
 import net.minecraft.client.renderer.entity.RenderDragon;
 import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.Vec3d;
 
-import javax.annotation.Nullable;
-
-public class RenderGodBeam extends RenderGeoExtended<EntityGodBeam> {
+public class RenderGodBeam extends AzEntityRenderer<EntityGodBeam> {
 
     private static final ResourceLocation TEXTURE = new ResourceLocation(ModReference.MOD_ID, "textures/entity/god_beam/god_beam.png");
     private static final ResourceLocation MODEL_RESLOC = new ResourceLocation(ModReference.MOD_ID, "geo/entity/apostle/geo.god_beam.json");
 
     public RenderGodBeam(RenderManager renderManager) {
-        super(renderManager, new ModelGodBeam(MODEL_RESLOC, TEXTURE, "god_beam"));
-        this.addLayer(new GeoSpecificGlow<>(this, this.TEXTURE_GETTER, this.MODEL_ID_GETTER));
+        super(AzEntityRendererConfig.<EntityGodBeam>builder(MODEL_RESLOC, TEXTURE)
+                        .addRenderLayer(new AzAutoGlowingLayer<>())
+                        .setRenderEntry(contextPipeline -> {
+
+                            // contextPipeline.animatable().animator.summonEntity();
+
+                            contextPipeline.animatable().updateAnimations();
+                            return contextPipeline;
+                        })
+                        .setAnimatorProvider(AnimatorGodBeam::new)
+                        .addRenderLayer(new AzAutoGlowingLayer<>())
+                        .setShadowRadius(0F)
+                        .build()
+                , renderManager);
     }
 
     @Override
@@ -41,46 +48,16 @@ public class RenderGodBeam extends RenderGeoExtended<EntityGodBeam> {
         super.doRender(entity, x, y, z, entityYaw, partialTicks);
     }
 
-    @Nullable
     @Override
-    protected ItemStack getHeldItemForBone(String boneName, EntityGodBeam currentEntity) {
-        return null;
-    }
-
-    @Override
-    protected ItemCameraTransforms.TransformType getCameraTransformForItemAtBone(ItemStack boneItem, String boneName) {
-        return null;
-    }
-
-    @Nullable
-    @Override
-    protected IBlockState getHeldBlockForBone(String boneName, EntityGodBeam currentEntity) {
-        return null;
-    }
-
-    @Override
-    protected void preRenderItem(ItemStack item, String boneName, EntityGodBeam currentEntity) {
-
-    }
-
-    @Override
-    protected void preRenderBlock(IBlockState block, String boneName, EntityGodBeam currentEntity) {
-
-    }
-
-    @Override
-    protected void postRenderItem(ItemStack item, String boneName, EntityGodBeam currentEntity) {
-
-    }
-
-    @Override
-    protected void postRenderBlock(IBlockState block, String boneName, EntityGodBeam currentEntity) {
-
-    }
-
-    @Nullable
-    @Override
-    protected ResourceLocation getTextureForBone(String boneName, EntityGodBeam currentEntity) {
-        return null;
+    public ResourceLocation getEntityTexture(EntityGodBeam animatable) {
+        if(animatable.ticksExisted < 5) {
+            return new ResourceLocation(ModReference.MOD_ID, "textures/entity/god_beam/god_beam_1.png");
+        } else if(animatable.ticksExisted < 10 && animatable.ticksExisted > 5) {
+            return new ResourceLocation(ModReference.MOD_ID, "textures/entity/god_beam/god_beam_2.png");
+        } else if(animatable.ticksExisted < 15 && animatable.ticksExisted > 10) {
+            return new ResourceLocation(ModReference.MOD_ID, "textures/entity/god_beam/god_beam_3.png");
+        }else {
+            return new ResourceLocation(ModReference.MOD_ID, "textures/entity/god_beam/god_beam.png");
+        }
     }
 }

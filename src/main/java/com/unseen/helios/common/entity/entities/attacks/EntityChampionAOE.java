@@ -2,6 +2,7 @@ package com.unseen.helios.common.entity.entities.attacks;
 
 import com.unseen.helios.Main;
 import com.unseen.helios.client.entity.IDirectionalRender;
+import com.unseen.helios.client.entity.animation.AnimationDispatcherChampionAOE;
 import com.unseen.helios.common.entity.base.EntityHeliosMobBase;
 import com.unseen.helios.common.entity.base.IScreenShake;
 import com.unseen.helios.events.MessageDirectionForRender;
@@ -18,25 +19,16 @@ import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import software.bernie.geckolib3.core.IAnimatable;
-import software.bernie.geckolib3.core.IAnimationTickable;
-import software.bernie.geckolib3.core.PlayState;
-import software.bernie.geckolib3.core.builder.AnimationBuilder;
-import software.bernie.geckolib3.core.controller.AnimationController;
-import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
-import software.bernie.geckolib3.core.manager.AnimationData;
-import software.bernie.geckolib3.core.manager.AnimationFactory;
 
-public class EntityChampionAOE extends EntityHeliosMobBase implements IAnimationTickable, IAnimatable, IDirectionalRender, IScreenShake {
+public class EntityChampionAOE extends EntityHeliosMobBase implements IDirectionalRender, IScreenShake {
 
     private Vec3d renderLazerPos;
-    private final String ANIM_SUMMON = "summon";
     private int shakeTime = 0;
 
     private static final DataParameter<Boolean> SHAKING = EntityDataManager.createKey(EntityChampionAOE.class, DataSerializers.BOOLEAN);
     private void setShaking(boolean value) {this.dataManager.set(SHAKING, Boolean.valueOf(value));}
     public boolean isShaking() {return this.dataManager.get(SHAKING);}
-    private final AnimationFactory factory = new AnimationFactory(this);
+    public final AnimationDispatcherChampionAOE animator;
 
 
     public EntityChampionAOE(World worldIn, float x, float y, float z) {
@@ -46,6 +38,7 @@ public class EntityChampionAOE extends EntityHeliosMobBase implements IAnimation
         this.noClip = true;
         this.setNoAI(true);
         this.setSize(1.5F, 0.4F);
+        this.animator = new AnimationDispatcherChampionAOE(this);
     }
 
     public EntityChampionAOE(World worldIn) {
@@ -55,6 +48,7 @@ public class EntityChampionAOE extends EntityHeliosMobBase implements IAnimation
         this.noClip = true;
         this.setNoAI(true);
         this.setSize(1.5F, 0.3F);
+        this.animator = new AnimationDispatcherChampionAOE(this);
     }
 
     private EntityLivingBase owner;
@@ -67,6 +61,7 @@ public class EntityChampionAOE extends EntityHeliosMobBase implements IAnimation
         this.setNoAI(true);
         this.owner = owner;
         this.setSize(1.5F, 0.3F);
+        this.animator = new AnimationDispatcherChampionAOE(this);
     }
 
     @Override
@@ -139,7 +134,7 @@ public class EntityChampionAOE extends EntityHeliosMobBase implements IAnimation
             }
         }
 
-        if(ticksExisted == 41) {
+        if(ticksExisted >= 41) {
             this.setDead();
         }
 
@@ -155,29 +150,8 @@ public class EntityChampionAOE extends EntityHeliosMobBase implements IAnimation
         }
     }
 
-    @Override
-    public void registerControllers(AnimationData data) {
-        data.addAnimationController(new AnimationController(this, "idle_controller", 0, this::predicateIdle));
-    }
-
-    private<E extends IAnimatable> PlayState predicateIdle(AnimationEvent<E> event) {
-        event.getController().setAnimation(new AnimationBuilder().playOnce(ANIM_SUMMON));
-        return PlayState.CONTINUE;
-    }
-
-    @Override
-    public AnimationFactory getFactory() {
-        return factory;
-    }
-
-    @Override
-    public void tick() {
-
-    }
-
-    @Override
-    public int tickTimer() {
-        return this.ticksExisted;
+    public void updateAnimations() {
+        animator.summonEntity();
     }
 
     @Override

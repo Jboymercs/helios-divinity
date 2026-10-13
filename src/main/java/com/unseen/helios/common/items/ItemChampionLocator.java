@@ -119,7 +119,7 @@ public class ItemChampionLocator extends ItemBase{
         k = k + (random.nextInt(spacing - separation) + random.nextInt(spacing - separation)) / 2;
         l = l + (random.nextInt(spacing - separation) + random.nextInt(spacing - separation)) / 2;
 
-        if (i == k && j == l && isAllowedDimensionTooSpawnInFrozenCastle(world.provider.getDimension()) && !world.isRemote && !world.isChunkGeneratedAt(i, j)) {
+        if (i == k && j == l && isAllowedDimensionTooSpawnIn(world.provider.getDimension()) && !world.isRemote && !world.isChunkGeneratedAt(i, j)) {
             BlockPos pos = new BlockPos((i << 4), 0, (j << 4));
             return isAbleToSpawnHere(pos, world);
         } else {
@@ -159,10 +159,12 @@ public class ItemChampionLocator extends ItemBase{
         return frozenCastleBiomeTypes;
     }
 
-    public static boolean isAllowedDimensionTooSpawnInFrozenCastle(int dimensionIn) {
-            if(dimensionIn == 0) {
+    public static boolean isAllowedDimensionTooSpawnIn(int dimensionIn) {
+        for(int i : WorldConfig.list_of_dimensions) {
+            if(i == dimensionIn)
                 return true;
-            }
+        }
+
         return false;
     }
 

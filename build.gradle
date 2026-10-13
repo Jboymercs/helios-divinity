@@ -45,6 +45,9 @@ archivesBaseName = project.base_name
  */
 java.toolchain.getLanguageVersion().set(JavaLanguageVersion.of(8))
 
+mixin {
+    disableAnnotationProcessorCheck()
+}
 
 /**
  * If you need to use an accessTransformer just uncomment it and replace the modid.
@@ -55,6 +58,17 @@ minecraft {
 
     accessTransformer = file('src/main/resources/META-INF/helios_at.cfg')
     runs {
+
+        configureEach {
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${projectDir}/build/createSrgToMcp/output.srg"
+
+            arg '-torg.spongepowered.asm.launch.MixinTweaker'
+            args '--mixin', 'azurelib.mixins.json'
+            // If your mod has its own mixins, add them too:
+            // args '--mixin', 'yourmodid.mixins.json'
+        }
+
         def args = [
                 '-Dmixin.debug.export=true',
                 '-Dmixin.hotSwap=true',
@@ -90,7 +104,11 @@ repositories {
     }
 
     //Geckolib
-    maven { url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/' }
+   // maven { url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/' }
+    maven {
+        name = "AzureDoom Mods"
+        url = "https://maven.azuredoom.com/mods"
+    }
 
     maven {
         name = 'Modrinth'
@@ -140,8 +158,17 @@ dependencies {
     //annotationProcessor("org.spongepowered:mixin:${project.mixin_version}:processor")
 
     //Geckolib
-    implementation (fg.deobf('software.bernie.geckolib:geckolib-forge-1.12.2:3.0.31'))
+    //implementation (fg.deobf('software.bernie.geckolib:geckolib-forge-1.12.2:3.0.31'))
 
+    //AzureLib
+    // The published jar is reobfuscated, so it has to go through fg.deobf
+    implementation fg.deobf("mod.azure.azurelib:azurelib-forge-1.12.2:1.0.0")
+
+    // AzureLib ships Mixin inside its jar; you only need it to compile your own mixins and to run in dev
+    implementation("org.spongepowered:mixin:0.8.5") {
+        transitive = false
+    }
+    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
     //Shaded `shade`
     //shade("io.github.kostaskougios:cloning:${project.cloning_version}")
 
@@ -220,9 +247,11 @@ jar {
         attributes([
                 'Specification-Version': project.version,
                 'Implementation-Timestamp': new Date().format("yyyy-MM-dd'T'HH:mm:ssZ"),
+                'TweakClass' : 'org.spongepowered.asm.launch.MixinTweaker',
+                'TweakOrder' : '0',
                 'FMLAT': 'helios_at.cfg',
                // 'FMLCorePlugin': 'packagename.author.modid.core.EarlyMixinPlugin',
-                'FMLCorePluginContainsFMLMod': true,
+              //  'FMLCorePluginContainsFMLMod': true,
                 'ForceLoadAsMod': true
         ])
     }

@@ -37,7 +37,7 @@ public class EventShieldHandler {
         //hand Trinket
         if(event.getEntityLiving() instanceof EntityPlayer) {
             EntityPlayer player = ((EntityPlayer) event.getEntityLiving());
-            ItemStack hand_trinket = ModUtils.findTrinket(ModItems.GREED_TRINKET.getDefaultInstance(), player);
+            ItemStack hand_trinket = ModUtils.findTrinket(new ItemStack(ModItems.GREED_TRINKET), player);
             if(!hand_trinket.isEmpty() && !player.getCooldownTracker().hasCooldown(hand_trinket.getItem())) {
                 if(event.getSource().getImmediateSource() instanceof EntityLivingBase) {
                     EntityLivingBase base = ((EntityLivingBase) event.getSource().getImmediateSource());

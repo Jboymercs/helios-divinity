@@ -55,4 +55,69 @@ public class MobConfig {
     @Config.Comment("Change the Health of the Hand of Greed")
     @Config.RequiresMcRestart
     public static double hand_of_greed_health = 15;
+
+
+    @Config.Name("Hand of Greed Iron Tier")
+    @Config.Comment("Change what block must be placed near the Manus Avaritia for Iron Tier trades. Works with 'modId:blockName'.")
+    @Config.RequiresMcRestart
+    public static String iron_tier_block = "minecraft:iron_block";
+
+    @Config.Name("Hand of Greed Gold Tier")
+    @Config.Comment("Change what block must be placed near the Manus Avaritia for Gold Tier trades. Works with 'modId:blockName'.")
+    @Config.RequiresMcRestart
+    public static String gold_tier_block = "minecraft:gold_block";
+
+    @Config.Name("Hand of Greed Diamond Tier")
+    @Config.Comment("Change what block must be placed near the Manus Avaritia for Diamond Tier trades. Works with 'modId:blockName'.")
+    @Config.RequiresMcRestart
+    public static String diamond_tier_block = "minecraft:diamond_block";
+
+    @Config.RequiresMcRestart
+    @Config.Comment(value = "What Items can be traded for Manus Goop. Works with 'modID:itemName'. Must be an item, and not a block.")
+    public static String[] manus_goop_trade_items = new String[] {
+            "minecraft:iron_ingot"
+    };
+
+    @Config.RequiresMcRestart
+    @Config.Comment(value = "What Items can be traded for Manus Stick. Works with 'modID:itemName'. Must be an item, and not a block.")
+    public static String[] manus_stick_trade_items = new String[] {
+            "minecraft:coal"
+    };
+
+    @Config.RequiresMcRestart
+    @Config.Comment(value = "What Items can be traded for Ferment Stonebricks. Works with 'modID:itemName'. Must be an item, and not a block.")
+    public static String[] ferment_stonebricks_trade_items = new String[] {
+            "minecraft:leather",
+            "minecraft:flint"
+    };
+
+    @Config.RequiresMcRestart
+    @Config.Comment(value = "What Items can be traded for Great Finger. Works with 'modID:itemName'. Must be an item, and not a block.")
+    public static String[] great_finger_trade_items = new String[] {
+            "minecraft:gold_ingot"
+    };
+
+    @Config.RequiresMcRestart
+    @Config.Comment(value = "What Items can be traded for Grafted Core. Works with 'modID:itemName'. Must be an item, and not a block.")
+    public static String[] grafted_core_trade_items = new String[] {
+            "minecraft:blaze_rod"
+    };
+
+    @Config.RequiresMcRestart
+    @Config.Comment(value = "What Items can be traded for Trinket of Destiny. Works with 'modID:itemName'. Must be an item, and not a block.")
+    public static String[] champion_locator_trade_items = new String[] {
+            "minecraft:ender_pearl"
+    };
+
+    @Config.RequiresMcRestart
+    @Config.Comment(value = "What Items can be traded for Hemoglehpin. Works with 'modID:itemName'. Must be an item, and not a block.")
+    public static String[] hemoglephin_trade_items = new String[] {
+            "minecraft:diamond"
+    };
+
+    @Config.RequiresMcRestart
+    @Config.Comment(value = "What Items can be traded for Depths Brain. Works with 'modID:itemName'. Must be an item, and not a block.")
+    public static String[] depths_brain_trade_items = new String[] {
+            "minecraft:emerald"
+    };
 }

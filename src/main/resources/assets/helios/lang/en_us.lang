@@ -41,7 +41,7 @@ item.manus_finger.name=Great Finger
 item.manus_brain.name=Depths Brain
 item.manus_shield.name=Finger Shield
 item.scroll_of_greed.name=Scroll of Living Greed
-item.manus_sword.name=Manus Goop Covered Sword
+item.manus_sword.name=Manus Sword
 item.great_finger.name=The Great Finger
 item.manus_helmet.name=Manus Helmet
 item.manus_chestplate.name=Manus Chestplate
@@ -58,6 +58,7 @@ helios.desc.manus_shield_name=Finger Shield
 
 helios.no_structure=There is no current structure within the search radius
 helios.within_bounds=You are within the radius of the structure, item locator resetting
+helios.no_valuable_blocks=It demands that blocks of value are placed around it in order to trade.
 
 helios.low_greed=The thought seems to be distant.
 helios.mid_greed=It is slowly crawling in the back of your mind.
