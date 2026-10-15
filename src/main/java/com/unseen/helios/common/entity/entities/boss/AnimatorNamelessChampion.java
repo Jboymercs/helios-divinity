@@ -6,7 +6,9 @@ import com.unseen.helios.util.ModReference;
 import com.unseen.helios.util.ModUtils;
 import mod.azure.azurelib.animation.controller.AzAnimationController;
 import mod.azure.azurelib.animation.controller.AzAnimationControllerContainer;
+import mod.azure.azurelib.animation.controller.AzBlendMode;
 import mod.azure.azurelib.animation.controller.state.AzAnimationState;
+import mod.azure.azurelib.animation.easing.AzEasingType;
 import mod.azure.azurelib.animation.impl.AzEntityAnimator;
 import mod.azure.azurelib.model.AzBakedModel;
 import mod.azure.azurelib.model.AzBone;
@@ -23,7 +25,7 @@ public class AnimatorNamelessChampion extends AzEntityAnimator<EntityNamelessCha
         animationControllerContainer.add(
                 AzAnimationController.builder(this, AnimationStrings.IDLE_LOWER_CONTROLLER).build(),
                 AzAnimationController.builder(this, AnimationStrings.WALK_LOWER_CONTROLLER).build(),
-                AzAnimationController.builder(this, AnimationStrings.ATTACK_CONTROLLER).setTransitionLength(3).build(),
+                AzAnimationController.builder(this, AnimationStrings.ATTACK_CONTROLLER).build(),
                 AzAnimationController.builder(this, AnimationStrings.STATES_CONTROLLER).build()
         );
     }
@@ -49,7 +51,7 @@ public class AnimatorNamelessChampion extends AzEntityAnimator<EntityNamelessCha
         float headYaw = MathHelper.wrapDegrees(ModUtils.rotLerp(partialTicks, entity.prevRotationYawHead, entity.rotationYawHead) - bodyYaw);
         float headPitch = ModUtils.lerp(partialTicks, entity.prevRotationPitch, entity.rotationPitch);
 
-        if(!entity.isSleepMode() && !entity.isIdleWake() && !entity.isCastGreed() && !entity.isTransformPhase()) {
+        if(!entity.isSleepMode() && !entity.isIdleWake() && !entity.isTransformPhase()) {
             AzBoneSnapshot initial = head.getInitialAzSnapshot();
             head.setRotX(initial.getRotX() + headPitch * ((float)Math.PI / 180F));
             head.setRotY(initial.getRotY() + headYaw * ((float)Math.PI / 180F));

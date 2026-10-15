@@ -46,7 +46,7 @@ archivesBaseName = project.base_name
 java.toolchain.getLanguageVersion().set(JavaLanguageVersion.of(8))
 
 mixin {
-    disableAnnotationProcessorCheck()
+    add sourceSets.main, 'helios.refmap.json'
 }
 
 /**
@@ -162,7 +162,7 @@ dependencies {
 
     //AzureLib
     // The published jar is reobfuscated, so it has to go through fg.deobf
-    implementation fg.deobf("mod.azure.azurelib:azurelib-forge-1.12.2:1.0.0")
+    implementation fg.deobf("mod.azure.azurelib:azurelib-forge-1.12.2:1.0.3")
 
     // AzureLib ships Mixin inside its jar; you only need it to compile your own mixins and to run in dev
     implementation("org.spongepowered:mixin:0.8.5") {

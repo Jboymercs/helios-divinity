@@ -24,9 +24,9 @@ public class ADApostleHand {
 
     private final AzCommand idleMode = AzCommand.create(AnimationStrings.IDLE_UPPER_CONTROLLER, ANIM_IDLE, AzPlayBehaviors.LOOP);
 
-    private final AzCommand arise = AzCommand.create(AnimationStrings.ATTACK_CONTROLLER, ANIM_ARISE, AzPlayBehaviors.PLAY_ONCE);
-    private final AzCommand call_projectile = AzCommand.create(AnimationStrings.ATTACK_CONTROLLER, ANIM_CALL_PROJECTILE, AzPlayBehaviors.PLAY_ONCE);
-    private final AzCommand self_aoe = AzCommand.create(AnimationStrings.ATTACK_CONTROLLER, ANIM_SELF_AOE, AzPlayBehaviors.PLAY_ONCE);
+    private final AzCommand arise = AzCommand.create(AnimationStrings.STATES_CONTROLLER, ANIM_ARISE, AzPlayBehaviors.PLAY_ONCE);
+    private final AzCommand call_projectile = AzCommand.create(AnimationStrings.STATES_CONTROLLER, ANIM_CALL_PROJECTILE, AzPlayBehaviors.PLAY_ONCE);
+    private final AzCommand self_aoe = AzCommand.create(AnimationStrings.STATES_CONTROLLER, ANIM_SELF_AOE, AzPlayBehaviors.PLAY_ONCE);
 
     //sets all things needed to be idle
     public void setIdleMode() {
@@ -37,7 +37,7 @@ public class ADApostleHand {
         idleRoots.sendForEntity(mob);
     }
 
-    public void set_Arise_Anim() {
+    public void setAriseAnim() {
         arise.sendForEntity(mob);
     }
 

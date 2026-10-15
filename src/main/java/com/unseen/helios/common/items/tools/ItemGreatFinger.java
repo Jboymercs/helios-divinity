@@ -24,7 +24,6 @@ public class ItemGreatFinger extends ToolSword {
     String info_loc;
     private int playerTickDamage;
     private final String ANIM_FINGER_ATTACK = "attack";
-    private String controllerName = "attack_controller";
     private final ADispatcherItem animator;
 
     public ItemGreatFinger(String name, ToolMaterial material, CreativeTabs tab, String info_loc) {

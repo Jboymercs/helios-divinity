@@ -14,7 +14,7 @@ public class AnimatorGreedHand  extends AzEntityAnimator<EntityGreedHand> {
     @Override
     public void registerControllers(AzAnimationControllerContainer<EntityGreedHand> animationControllerContainer) {
         animationControllerContainer.add(
-                AzAnimationController.builder(this, AnimationStrings.IDLE_UPPER_CONTROLLER).build()
+                AzAnimationController.builder(this, AnimationStrings.IDLE_CONTROLLER).build()
         );
     }
 

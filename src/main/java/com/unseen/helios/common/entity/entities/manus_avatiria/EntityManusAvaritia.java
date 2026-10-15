@@ -237,15 +237,15 @@ public class EntityManusAvaritia extends EntityHeliosMobBase {
             //iron tier trades
             if(this.ironTier) {
                 if(ModUtils.canItemBeTraded(stack.getItem(), MobConfig.manus_goop_trade_items)) {
-                    doTradeAction(player, new ItemStack(stack.getItem()), new ItemStack(ModItems.MANUS_GOOP), ModRand.range(1, 3), false);
+                    doTradeAction(player, new ItemStack(stack.getItem()), new ItemStack(ModItems.MANUS_GOOP), ModRand.range(1, 3));
                     stack.shrink(1);
                     player.addPotionEffect(new PotionEffect(ModPotions.GREED, 40, 0, false, false));
                 } else if (ModUtils.canItemBeTraded(stack.getItem(), MobConfig.manus_stick_trade_items)) {
-                    doTradeAction(player, new ItemStack(stack.getItem()), new ItemStack(ModItems.MANUS_STICK), 1, false);
+                    doTradeAction(player, new ItemStack(stack.getItem()), new ItemStack(ModItems.MANUS_STICK), 1);
                     stack.shrink(1);
                     player.addPotionEffect(new PotionEffect(ModPotions.GREED, 40, 0, false, false));
                 } else if (ModUtils.canItemBeTraded(stack.getItem(), MobConfig.ferment_stonebricks_trade_items)) {
-                    doTradeAction(player, new ItemStack(stack.getItem()), new ItemStack(Item.getItemFromBlock(ModBlocks.FERMENT_STONE)), 8, true);
+                    doTradeAction(player, new ItemStack(stack.getItem()), new ItemStack(Item.getItemFromBlock(ModBlocks.FERMENT_STONE)), 8);
                     stack.shrink(1);
                     player.addPotionEffect(new PotionEffect(ModPotions.GREED, 40, 0, false, false));
                 }
@@ -255,15 +255,15 @@ public class EntityManusAvaritia extends EntityHeliosMobBase {
             if(this.goldTier) {
                 if(ModUtils.canItemBeTraded(stack.getItem(), MobConfig.great_finger_trade_items)) {
                     //Tartarus Part
-                    doTradeAction(player, new ItemStack(stack.getItem()), new ItemStack(ModItems.MANUS_FINGER), 1, false);
+                    doTradeAction(player, new ItemStack(stack.getItem()), new ItemStack(ModItems.MANUS_FINGER), 1);
                     stack.shrink(1);
                     player.addPotionEffect(new PotionEffect(ModPotions.GREED, 80, 0, false, false));
                 } else if (ModUtils.canItemBeTraded(stack.getItem(), MobConfig.grafted_core_trade_items)) {
-                    doTradeAction(player, new ItemStack(stack.getItem()), new ItemStack(ModItems.MANUS_CORE), 1, false);
+                    doTradeAction(player, new ItemStack(stack.getItem()), new ItemStack(ModItems.MANUS_CORE), 1);
                     stack.shrink(1);
                     player.addPotionEffect(new PotionEffect(ModPotions.GREED, 80, 0, false, false));
                 } else if (ModUtils.canItemBeTraded(stack.getItem(), MobConfig.champion_locator_trade_items)) {
-                    doTradeAction(player, new ItemStack(stack.getItem()), new ItemStack(ModItems.CHAMPION_LOCATOR), 1, true);
+                    doTradeAction(player, new ItemStack(stack.getItem()), new ItemStack(ModItems.CHAMPION_LOCATOR), 1);
                     stack.shrink(1);
                     player.addPotionEffect(new PotionEffect(ModPotions.GREED, 80, 0, false, false));
                 }
@@ -273,12 +273,12 @@ public class EntityManusAvaritia extends EntityHeliosMobBase {
             if(this.diamondTier) {
                 if(ModUtils.canItemBeTraded(stack.getItem(), MobConfig.hemoglephin_trade_items)) {
                     //Glepholin
-                    doTradeAction(player, new ItemStack(stack.getItem()), new ItemStack(ModItems.HEMOGLEPHIN), ModRand.range(1, 3), false);
+                    doTradeAction(player, new ItemStack(stack.getItem()), new ItemStack(ModItems.HEMOGLEPHIN), ModRand.range(1, 3));
                     stack.shrink(1);
                     player.addPotionEffect(new PotionEffect(ModPotions.GREED, 60, 1, false, false));
                 } else if (ModUtils.canItemBeTraded(stack.getItem(), MobConfig.depths_brain_trade_items)) {
                     //Manus Brains
-                    doTradeAction(player, new ItemStack(stack.getItem()), new ItemStack(ModItems.MANUS_BRAIN), 1, false);
+                    doTradeAction(player, new ItemStack(stack.getItem()), new ItemStack(ModItems.MANUS_BRAIN), 1);
                     stack.shrink(1);
                     player.addPotionEffect(new PotionEffect(ModPotions.GREED, 60, 1, false, false));
                 }
@@ -293,7 +293,7 @@ public class EntityManusAvaritia extends EntityHeliosMobBase {
     }
 
 
-    private void doTradeAction(EntityPlayer player, ItemStack input, ItemStack output, int outputAmount, boolean isBlock) {
+    private void doTradeAction(EntityPlayer player, ItemStack input, ItemStack output, int outputAmount) {
         this.setTradeAction(true);
         animator.setStatusUpdate(ANIM_TRADE_ACTION);
         addEvent(()-> this.equipItemInHand(TRADER_HAND.HAND, input), 10);
@@ -309,9 +309,7 @@ public class EntityManusAvaritia extends EntityHeliosMobBase {
         }, 32);
 
         addEvent(()-> {
-            if(!isBlock) {
                 this.equipItemInHand(TRADER_HAND.HAND, output);
-            }
         }, 55);
 
         addEvent(()-> {

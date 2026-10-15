@@ -108,7 +108,6 @@ public class EntityApostleHand extends EntityHeliosMobBase implements IScreenSha
     private void summonMob() {
         this.setArise(true);
         this.setFightMode(true);
-        this.animator.set_Arise_Anim();
         this.setImmovable(true);
         this.shakeTime = 80;
         this.setShaking(true);
@@ -362,6 +361,14 @@ public class EntityApostleHand extends EntityHeliosMobBase implements IScreenSha
     }
 
     public void updateAnimations() {
+        if(!this.isArise()) {
+            animator.setIdleRoots();
+            if(!this.isFightMode()) {
+                animator.setIdleMode();
+            }
+        } else if (this.isArise()) {
+            animator.setAriseAnim();
+        }
     }
 
     @Override

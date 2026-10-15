@@ -13,7 +13,7 @@ public class AnimatorGodBeam extends AzEntityAnimator<EntityGodBeam> {
     @Override
     public void registerControllers(AzAnimationControllerContainer<EntityGodBeam> animationControllerContainer) {
         animationControllerContainer.add(
-                AzAnimationController.builder(this, AnimationStrings.IDLE_UPPER_CONTROLLER).build()
+                AzAnimationController.builder(this, AnimationStrings.IDLE_CONTROLLER).build()
         );
     }
 

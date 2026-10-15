@@ -6,6 +6,7 @@ import com.unseen.helios.util.ModReference;
 import mod.azure.azurelib.render.entity.AzEntityRenderer;
 import mod.azure.azurelib.render.entity.AzEntityRendererConfig;
 import mod.azure.azurelib.render.layer.AzAutoGlowingLayer;
+import mod.azure.azurelib.render.vertex.RenderType;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;
 
@@ -16,6 +17,7 @@ public class RenderGreedHand extends AzEntityRenderer<EntityGreedHand> {
 
     public RenderGreedHand(RenderManager renderManager) {
         super(AzEntityRendererConfig.<EntityGreedHand>builder(MODEL_RESLOC, TEXTURE)
+                        .setRenderType(RenderType.entityTranslucent(TEXTURE))
                         .addRenderLayer(new AzAutoGlowingLayer<>())
                         .setRenderEntry(contextPipeline -> {
 
@@ -26,7 +28,7 @@ public class RenderGreedHand extends AzEntityRenderer<EntityGreedHand> {
                         })
                         .setAnimatorProvider(AnimatorGreedHand::new)
                         .addRenderLayer(new AzAutoGlowingLayer<>())
-                        .setShadowRadius(1F)
+                        .setShadowRadius(0.75F)
                         .build()
                 , renderManager);
     }

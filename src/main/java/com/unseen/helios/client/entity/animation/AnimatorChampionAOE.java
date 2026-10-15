@@ -14,7 +14,7 @@ public class AnimatorChampionAOE extends AzEntityAnimator<EntityChampionAOE> {
     @Override
     public void registerControllers(AzAnimationControllerContainer<EntityChampionAOE> animationControllerContainer) {
         animationControllerContainer.add(
-                AzAnimationController.builder(this, AnimationStrings.IDLE_UPPER_CONTROLLER).build()
+                AzAnimationController.builder(this, AnimationStrings.IDLE_CONTROLLER).build()
         );
     }
 

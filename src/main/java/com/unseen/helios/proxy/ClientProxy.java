@@ -1,12 +1,16 @@
 package com.unseen.helios.proxy;
 
 import com.unseen.helios.client.item.model.ModelManusHelmet;
+import com.unseen.helios.client.item.render.RenderChampionSpear;
+import com.unseen.helios.client.item.render.RenderGreatFinger;
+import com.unseen.helios.client.item.render.RenderManusShield;
 import com.unseen.helios.client.particle.*;
 import com.unseen.helios.events.EventBossMusic;
 import com.unseen.helios.handlers.RenderHandler;
 import com.unseen.helios.init.ModItems;
 import com.unseen.helios.util.CameraPositionHandler;
 import com.unseen.helios.util.EntityMusicPlayerHelios;
+import mod.azure.azurelib.render.item.AzItemRendererRegistry;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementProgress;
 import net.minecraft.client.Minecraft;
@@ -51,9 +55,16 @@ public class ClientProxy extends CommonProxy{
         RenderHandler.registerAllEntityRenders();
         RenderHandler.registerGeoEntityRenderers();
         RenderHandler.registerProjectileRenderers();
+        this.handleAzureLibItemRenders();
         // Add custom metadataserializers
         Minecraft mc = Minecraft.getMinecraft();
         super.init();
+    }
+
+    private void handleAzureLibItemRenders() {
+        AzItemRendererRegistry.register(ModItems.CHAMPION_SPEAR, RenderChampionSpear::new);
+        AzItemRendererRegistry.register(ModItems.MANUS_SHIELD, RenderManusShield::new);
+        AzItemRendererRegistry.register(ModItems.GREAT_FINGER, RenderGreatFinger::new);
     }
 
     @Override

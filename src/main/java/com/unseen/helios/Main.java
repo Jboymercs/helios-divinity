@@ -43,11 +43,6 @@ public class Main {
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent event) {
         AzureLib.initialize();
-        AzIdentityRegistry.register(
-                ModItems.CHAMPION_SPEAR,
-                ModItems.GREAT_FINGER,
-                ModItems.MANUS_SHIELD
-        );
         //Handles Entities
         GameRegistry.registerTileEntity(TileEntityChampionHead.class, new ResourceLocation(ModReference.MOD_ID, "champion_helmet"));
         ModEntities.registerEntities();

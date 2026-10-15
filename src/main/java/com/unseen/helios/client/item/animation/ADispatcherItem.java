@@ -9,7 +9,7 @@ import net.minecraft.item.ItemStack;
 public class ADispatcherItem {
 
     public void performItemAnimation(Entity entity, ItemStack stack, boolean loop, String animationString) {
-        AzCommand command = AzCommand.create(AnimationStrings.STATES_CONTROLLER, animationString, loop ? AzPlayBehaviors.PLAY_ONCE : AzPlayBehaviors.LOOP);
+        AzCommand command = AzCommand.create(AnimationStrings.STATES_CONTROLLER, animationString, loop ? AzPlayBehaviors.LOOP : AzPlayBehaviors.PLAY_ONCE);
         command.sendForItem(entity, stack);
     }
 

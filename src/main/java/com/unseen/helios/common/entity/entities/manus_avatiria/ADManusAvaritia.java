@@ -8,11 +8,12 @@ public class ADManusAvaritia {
 
     private final String ANIM_IDLE = "idle_awake";
     private final String ANIM_IDLE_ROOTS = "idle_roots";
+    private final String ANIM_IDLE_ASLEEP = "idle_sleep";
 
     private final EntityManusAvaritia mob;
     private final AzCommand idleRoots = AzCommand.create(AnimationStrings.IDLE_LOWER_CONTROLLER, ANIM_IDLE_ROOTS, AzPlayBehaviors.LOOP);
     private final AzCommand idleMode = AzCommand.create(AnimationStrings.IDLE_UPPER_CONTROLLER, ANIM_IDLE, AzPlayBehaviors.LOOP);
-    private final AzCommand idleAsleep = AzCommand.create(AnimationStrings.IDLE_UPPER_CONTROLLER, ANIM_IDLE, AzPlayBehaviors.LOOP);
+    private final AzCommand idleAsleep = AzCommand.create(AnimationStrings.IDLE_UPPER_CONTROLLER, ANIM_IDLE_ASLEEP, AzPlayBehaviors.LOOP);
     public ADManusAvaritia(EntityManusAvaritia mob) {
         this.mob = mob;
     }

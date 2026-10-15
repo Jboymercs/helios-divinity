@@ -16,10 +16,18 @@ import net.minecraft.util.math.Vec3d;
 public class RenderGodBeam extends AzEntityRenderer<EntityGodBeam> {
 
     private static final ResourceLocation TEXTURE = new ResourceLocation(ModReference.MOD_ID, "textures/entity/god_beam/god_beam.png");
+    private static final ResourceLocation TEXTURE_ONE = new ResourceLocation(ModReference.MOD_ID, "textures/entity/god_beam/god_beam_1.png");
+    private static final ResourceLocation TEXTURE_TWO = new ResourceLocation(ModReference.MOD_ID, "textures/entity/god_beam/god_beam_2.png");
+    private static final ResourceLocation TEXTURE_THREE = new ResourceLocation(ModReference.MOD_ID, "textures/entity/god_beam/god_beam_3.png");
     private static final ResourceLocation MODEL_RESLOC = new ResourceLocation(ModReference.MOD_ID, "geo/entity/apostle/geo.god_beam.json");
 
     public RenderGodBeam(RenderManager renderManager) {
-        super(AzEntityRendererConfig.<EntityGodBeam>builder(MODEL_RESLOC, TEXTURE)
+        super(AzEntityRendererConfig.<EntityGodBeam>builder($ -> MODEL_RESLOC, entity ->
+                                entity.ticksExisted < 5 ? TEXTURE_ONE :
+                                        entity.ticksExisted < 10 && entity.ticksExisted > 5 ? TEXTURE_TWO :
+                                                entity.ticksExisted < 15 && entity.ticksExisted > 10 ? TEXTURE_THREE :
+                                                        TEXTURE
+                                )
                         .addRenderLayer(new AzAutoGlowingLayer<>())
                         .setRenderEntry(contextPipeline -> {
 
@@ -46,18 +54,5 @@ public class RenderGodBeam extends AzEntityRenderer<EntityGodBeam> {
             RenderUtil.drawBeam(renderManager, entity.getPositionVector(), entity.getRenderDirection(), new Vec3d(x, y, z), ModColors.MAELSTROM, entity, partialTicks, new Vec3d(scale * 3, 1, scale * 3));
         }
         super.doRender(entity, x, y, z, entityYaw, partialTicks);
-    }
-
-    @Override
-    public ResourceLocation getEntityTexture(EntityGodBeam animatable) {
-        if(animatable.ticksExisted < 5) {
-            return new ResourceLocation(ModReference.MOD_ID, "textures/entity/god_beam/god_beam_1.png");
-        } else if(animatable.ticksExisted < 10 && animatable.ticksExisted > 5) {
-            return new ResourceLocation(ModReference.MOD_ID, "textures/entity/god_beam/god_beam_2.png");
-        } else if(animatable.ticksExisted < 15 && animatable.ticksExisted > 10) {
-            return new ResourceLocation(ModReference.MOD_ID, "textures/entity/god_beam/god_beam_3.png");
-        }else {
-            return new ResourceLocation(ModReference.MOD_ID, "textures/entity/god_beam/god_beam.png");
-        }
     }
 }

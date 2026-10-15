@@ -21,16 +21,18 @@ import java.util.UUID;
 public class RenderManusAvaritia extends AzEntityRenderer<EntityManusAvaritia> {
 
     private static final ResourceLocation TEXTURE = new ResourceLocation(ModReference.MOD_ID, "textures/entity/manus_avaritia.png");
+    private static final ResourceLocation TEXTURE_SLEEP = new ResourceLocation(ModReference.MOD_ID, "textures/entity/manus_avaritia_sleep.png");
     private static final ResourceLocation MODEL_RESLOC = new ResourceLocation(ModReference.MOD_ID, "geo/entity/manus/geo.manus_avaritia.json");
 
     public RenderManusAvaritia(RenderManager renderManager) {
-        super(AzEntityRendererConfig.<EntityManusAvaritia>builder(MODEL_RESLOC, TEXTURE)
+        super(AzEntityRendererConfig.<EntityManusAvaritia>builder($ -> MODEL_RESLOC, entity ->
+                                entity.isSleepMode() ? TEXTURE_SLEEP : TEXTURE)
                         .addRenderLayer(new AzAutoGlowingLayer<>())
                         .addRenderLayer(new AzBlockAndItemLayer<UUID, EntityManusAvaritia>() {
 
                             @Override
                             public ItemStack itemStackForBone(AzBone bone, EntityManusAvaritia animatable) {
-                                if (bone.getName().equals(EntityManusAvaritia.TRADER_HAND.HAND)) {
+                                if (bone.getName().equals("TradeJoint")) {
                                     return animatable.getItemFromRoyalHand(EntityManusAvaritia.TRADER_HAND.HAND);
                                 }
 
@@ -53,11 +55,11 @@ public class RenderManusAvaritia extends AzEntityRenderer<EntityManusAvaritia> {
                                     ItemStack itemStack,
                                     EntityManusAvaritia animatable
                             ) {
-                                context.poseStack().mulPose(Vector3f.XP.rotationDegrees(-45));
+                                context.poseStack().mulPose(Vector3f.XP.rotationDegrees(90));
                                 context.poseStack().mulPose(Vector3f.YP.rotationDegrees(0));
                                 context.poseStack().mulPose(Vector3f.ZP.rotationDegrees(0f));
-                                context.poseStack().translate(0.0D, 0D, -0.4D);
-                                context.poseStack().scale(0.6f, 0.6f, 0.6f);
+                                context.poseStack().translate(0D, -0.1D, 0D);
+                                context.poseStack().scale(0.75f, 0.75f, 0.75f);
                                 super.renderItemForBone(context, bone, itemStack, animatable);
                             }
                         })
@@ -68,18 +70,8 @@ public class RenderManusAvaritia extends AzEntityRenderer<EntityManusAvaritia> {
                         })
                         .setAnimatorProvider(AnimatorManusAvaritia::new)
                         .addRenderLayer(new AzAutoGlowingLayer<>())
-                        .setShadowRadius(1F)
+                        .setShadowRadius(0F)
                         .build()
                 , renderManager);
-    }
-
-    @Nonnull
-    @Override
-    public ResourceLocation getEntityTexture(EntityManusAvaritia animatable) {
-        if(animatable.isSleepMode()) {
-            return new ResourceLocation(ModReference.MOD_ID, "textures/entity/manus_avaritia_sleep.png");
-        } else {
-            return new ResourceLocation(ModReference.MOD_ID, "textures/entity/manus_avaritia.png");
-        }
     }
 }

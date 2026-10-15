@@ -64,8 +64,6 @@ public class EntityNamelessChampion extends EntityHeliosMobBase implements IAtta
     private final MoveAnalysis moveAnalysis;
     public final ADNamelessChampion animator = new ADNamelessChampion(this);
     //states
-    private final String ANIM_IDLE = "idle";
-    private final String ANIM_WALK = "walk";
     private final String ANIM_SLEEP = "idle_sleep";
     private final String ANIM_DEATH = "death";
     private final String ANIM_AWAKE = "idle_awake";
@@ -85,23 +83,12 @@ public class EntityNamelessChampion extends EntityHeliosMobBase implements IAtta
     private final String ANIM_SWING_BACKSTEP = "swing_backstep";
 
     private static final DataParameter<Boolean> SHAKING = EntityDataManager.createKey(EntityNamelessChampion.class, DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean> SWING = EntityDataManager.createKey(EntityNamelessChampion.class, DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean> DASH = EntityDataManager.createKey(EntityNamelessChampion.class, DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean> OVERHEAD_SWING = EntityDataManager.createKey(EntityNamelessChampion.class, DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean> CIRCLE_SWING = EntityDataManager.createKey(EntityNamelessChampion.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> SLEEP_MODE = EntityDataManager.createKey(EntityNamelessChampion.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> IDLE_WAKE = EntityDataManager.createKey(EntityNamelessChampion.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> TRANSFORM_PHASE = EntityDataManager.createKey(EntityNamelessChampion.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> GREEDY = EntityDataManager.createKey(EntityNamelessChampion.class, DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean> STOMP = EntityDataManager.createKey(EntityNamelessChampion.class, DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean> FLY_AOE = EntityDataManager.createKey(EntityNamelessChampion.class, DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean> CAST_GREED = EntityDataManager.createKey(EntityNamelessChampion.class, DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean> CAST_PROJECTILES = EntityDataManager.createKey(EntityNamelessChampion.class, DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean> TRIPLE_SlASH = EntityDataManager.createKey(EntityNamelessChampion.class, DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean> TRIPLE_STOMP = EntityDataManager.createKey(EntityNamelessChampion.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> HAD_PREVIOUS_TARGET = EntityDataManager.createKey(EntityNamelessChampion.class, DataSerializers.BOOLEAN);
     private static final DataParameter<Boolean> DEATH_STATE = EntityDataManager.createKey(EntityNamelessChampion.class, DataSerializers.BOOLEAN);
-    private static final DataParameter<Boolean> SWING_BACKSTEP = EntityDataManager.createKey(EntityNamelessChampion.class, DataSerializers.BOOLEAN);
 
     public static DataParameter<BlockPos> SPAWN_LOCATION = EntityDataManager.createKey(EntityNamelessChampion.class, DataSerializers.BLOCK_POS);
     public static DataParameter<Boolean> SET_SPAWN_LOC = EntityDataManager.createKey(EntityNamelessChampion.class, DataSerializers.BOOLEAN);
@@ -109,38 +96,16 @@ public class EntityNamelessChampion extends EntityHeliosMobBase implements IAtta
     public boolean isTransformPhase() {return this.dataManager.get(TRANSFORM_PHASE);}
     private void setGreedy(boolean value) {this.dataManager.set(GREEDY, Boolean.valueOf(value));}
     public boolean isGreedy() {return this.dataManager.get(GREEDY);}
-    private void setStomp(boolean value) {this.dataManager.set(STOMP, Boolean.valueOf(value));}
-    public boolean isStomp() {return this.dataManager.get(STOMP);}
-    private void setFlyAOE(boolean value) {this.dataManager.set(FLY_AOE, Boolean.valueOf(value));}
-    public boolean isFlyAOE() {return this.dataManager.get(FLY_AOE);}
-    private void setCastGreed(boolean value) {this.dataManager.set(CAST_GREED, Boolean.valueOf(value));}
-    public boolean isCastGreed() {return this.dataManager.get(CAST_GREED);}
     private void setShaking(boolean value) {this.dataManager.set(SHAKING, Boolean.valueOf(value));}
     public boolean isShaking() {return this.dataManager.get(SHAKING);}
-    private void setSwing(boolean value) {this.dataManager.set(SWING, Boolean.valueOf(value));}
-    public boolean isSwing() {return this.dataManager.get(SWING);}
-    private void setDash(boolean value) {this.dataManager.set(DASH, Boolean.valueOf(value));}
-    public boolean isDash() {return this.dataManager.get(DASH);}
-    private void setOverheadSwing(boolean value) {this.dataManager.set(OVERHEAD_SWING, Boolean.valueOf(value));}
-    public boolean isOverheadSwing() {return this.dataManager.get(OVERHEAD_SWING);}
-    private void setCircleSwing(boolean value) {this.dataManager.set(CIRCLE_SWING, Boolean.valueOf(value));}
-    public boolean isCircleSwing() {return this.dataManager.get(CIRCLE_SWING);}
     private void setIdleWake(boolean value) {this.dataManager.set(IDLE_WAKE, Boolean.valueOf(value));}
     public boolean isIdleWake() {return this.dataManager.get(IDLE_WAKE);}
     private void setSleepMode(boolean value) {this.dataManager.set(SLEEP_MODE, Boolean.valueOf(value));}
     public boolean isSleepMode() {return this.dataManager.get(SLEEP_MODE);}
-    private void setCastProjectiles(boolean value) {this.dataManager.set(CAST_PROJECTILES, Boolean.valueOf(value));}
-    public boolean isCastProjectiles() {return this.dataManager.get(CAST_PROJECTILES);}
-    private void setTripleSlash(boolean value) {this.dataManager.set(TRIPLE_SlASH, Boolean.valueOf(value));}
-    public boolean isTripleSlash() {return this.dataManager.get(TRIPLE_SlASH);}
-    private void setTripleStomp(boolean value) {this.dataManager.set(TRIPLE_STOMP, Boolean.valueOf(value));}
-    public boolean isTripleStomp() {return this.dataManager.get(TRIPLE_STOMP);}
     private void setDeathState(boolean value) {this.dataManager.set(DEATH_STATE, Boolean.valueOf(value));}
     public boolean isDeathState() {return this.dataManager.get(DEATH_STATE);}
     public boolean isHadPreviousTarget() {return this.dataManager.get(HAD_PREVIOUS_TARGET);}
     public void setHadPreviousTarget(boolean value) {this.dataManager.set(HAD_PREVIOUS_TARGET, Boolean.valueOf(value));}
-    public boolean isSwingBackStep() {return this.dataManager.get(SWING_BACKSTEP);}
-    public void setSwingBackstep(boolean value) {this.dataManager.set(SWING_BACKSTEP, Boolean.valueOf(value));}
 
     public boolean isSetSpawnLoc() {
         return this.dataManager.get(SET_SPAWN_LOC);
@@ -179,22 +144,11 @@ public class EntityNamelessChampion extends EntityHeliosMobBase implements IAtta
     @Override
     public void writeEntityToNBT(NBTTagCompound nbt) {
         super.writeEntityToNBT(nbt);
-        nbt.setBoolean("Swing", this.isSwing());
-        nbt.setBoolean("Dash", this.isDash());
-        nbt.setBoolean("Overhead_Swing", this.isOverheadSwing());
-        nbt.setBoolean("Circle_Swing", this.isCircleSwing());
         nbt.setBoolean("Shaking", this.isShaking());
         nbt.setBoolean("Sleep_Mode", this.isSleepMode());
         nbt.setBoolean("Idle_Wake", this.isIdleWake());
         nbt.setBoolean("Transform_Phase", this.isTransformPhase());
         nbt.setBoolean("Greedy", this.isGreedy());
-        nbt.setBoolean("Stomp", this.isStomp());
-        nbt.setBoolean("Fly_Aoe", this.isFlyAOE());
-        nbt.setBoolean("Cast_Greed", this.isCastGreed());
-        nbt.setBoolean("Cast_Projectiles", this.isCastProjectiles());
-        nbt.setBoolean("Triple_Stomp", this.isTripleStomp());
-        nbt.setBoolean("Swing_Backstep", this.isSwingBackStep());
-        nbt.setBoolean("Triple_Slash", this.isTripleSlash());
         nbt.setBoolean("Death_State", this.isDeathState());
         nbt.setBoolean("Had_Target", this.dataManager.get(HAD_PREVIOUS_TARGET));
         nbt.setInteger("Spawn_Loc_X", this.getSpawnLocation().getX());
@@ -206,23 +160,12 @@ public class EntityNamelessChampion extends EntityHeliosMobBase implements IAtta
     @Override
     public void readEntityFromNBT(NBTTagCompound nbt) {
         super.readEntityFromNBT(nbt);
-        this.setSwing(nbt.getBoolean("Swing"));
-        this.setDash(nbt.getBoolean("Dash"));
-        this.setOverheadSwing(nbt.getBoolean("Overhead_Swing"));
-        this.setCircleSwing(nbt.getBoolean("Circle_Swing"));
         this.setShaking(nbt.getBoolean("Shaking"));
         this.setSleepMode(nbt.getBoolean("Sleep_Mode"));
         this.setIdleWake(nbt.getBoolean("Idle_Wake"));
         this.setDeathState(nbt.getBoolean("Death_State"));
         this.setTransformPhase(nbt.getBoolean("Transform_Phase"));
         this.setGreedy(nbt.getBoolean("Greedy"));
-        this.setStomp(nbt.getBoolean("Stomp"));
-        this.setSwingBackstep(nbt.getBoolean("Swing_Backstep"));
-        this.setFlyAOE(nbt.getBoolean("Fly_Aoe"));
-        this.setTripleStomp(nbt.getBoolean("Triple_Stomp"));
-        this.setCastGreed(nbt.getBoolean("Cast_Greed"));
-        this.setCastProjectiles(nbt.getBoolean("Cast_Projectiles"));
-        this.setTripleSlash(nbt.getBoolean("Triple_Slash"));
         this.setHadPreviousTarget(nbt.getBoolean("Had_Target"));
         this.dataManager.set(SET_SPAWN_LOC, nbt.getBoolean("Set_Spawn_Loc"));
         if (this.hasCustomName()) {
@@ -234,23 +177,12 @@ public class EntityNamelessChampion extends EntityHeliosMobBase implements IAtta
     @Override
     public void entityInit() {
         super.entityInit();
-        this.dataManager.register(SWING, Boolean.valueOf(false));
-        this.dataManager.register(DASH, Boolean.valueOf(false));
-        this.dataManager.register(OVERHEAD_SWING, Boolean.valueOf(false));
-        this.dataManager.register(CIRCLE_SWING, Boolean.valueOf(false));
         this.dataManager.register(SHAKING, Boolean.valueOf(false));
         this.dataManager.register(IDLE_WAKE, Boolean.valueOf(false));
         this.dataManager.register(SLEEP_MODE, Boolean.valueOf(false));
         this.dataManager.register(TRANSFORM_PHASE, Boolean.valueOf(false));
         this.dataManager.register(GREEDY, Boolean.valueOf(false));
-        this.dataManager.register(TRIPLE_STOMP, Boolean.valueOf(false));
-        this.dataManager.register(SWING_BACKSTEP, Boolean.valueOf(false));
         this.dataManager.register(DEATH_STATE, Boolean.valueOf(false));
-        this.dataManager.register(STOMP, Boolean.valueOf(false));
-        this.dataManager.register(FLY_AOE, Boolean.valueOf(false));
-        this.dataManager.register(CAST_GREED, Boolean.valueOf(false));
-        this.dataManager.register(CAST_PROJECTILES, Boolean.valueOf(false));
-        this.dataManager.register(TRIPLE_SlASH, Boolean.valueOf(false));
         this.dataManager.register(HAD_PREVIOUS_TARGET, Boolean.valueOf(false));
         this.dataManager.register(SET_SPAWN_LOC, Boolean.valueOf(false));
         //
@@ -287,6 +219,7 @@ public class EntityNamelessChampion extends EntityHeliosMobBase implements IAtta
     @Override
     public void onUpdate() {
         super.onUpdate();
+        this.moveAnalysis.update();
         this.shakeTime--;
         this.flyCooldown--;
         this.tripleSlashCooldown--;
@@ -498,7 +431,6 @@ public class EntityNamelessChampion extends EntityHeliosMobBase implements IAtta
 
     private final Consumer<EntityLivingBase> swing_backstep = (target) -> {
       this.setFightMode(true);
-      this.setSwingBackstep(true);
       this.setImmovable(true);
         animator.performAttack(ANIM_SWING_BACKSTEP);
         addEvent(()-> this.playSound(ModSoundHandler.CHAMPION_ARMOR, 0.6f, 0.6f / (rand.nextFloat() * 0.4f + 0.2f)), 3);
@@ -555,7 +487,6 @@ public class EntityNamelessChampion extends EntityHeliosMobBase implements IAtta
         }, 59);
 
         addEvent(()-> {
-            this.setSwingBackstep(false);
             this.setImmovable(false);
             this.setFightMode(false);
         }, 90);
@@ -565,7 +496,6 @@ public class EntityNamelessChampion extends EntityHeliosMobBase implements IAtta
     Supplier<Projectile> trackingOrbProjectile = () -> new ProjectileChampionOrb(this.world, this, (float) (this.getAttack()));
 
     private final Consumer<EntityLivingBase> fly_triple_slash = (target) -> {
-        this.setTripleSlash(true);
         this.setFightMode(true);
         this.setImmovable(true);
         animator.performAttack(ANIM_TRIPLE_SLASH);
@@ -640,13 +570,11 @@ public class EntityNamelessChampion extends EntityHeliosMobBase implements IAtta
 
         addEvent(()-> {
             this.setFightMode(false);
-            this.setTripleSlash(false);
             this.tripleSlashCooldown = 20 * 20;
         }, 190);
     };
 
     private final Consumer<EntityLivingBase> cast_Projectiles = (target) -> {
-      this.setCastProjectiles(true);
       this.setFightMode(true);
       this.setImmovable(false);
       animator.performAttack(ANIM_CAST_PROJECTILES);
@@ -673,7 +601,6 @@ public class EntityNamelessChampion extends EntityHeliosMobBase implements IAtta
 
         addEvent(()-> {
             this.lockLook = false;
-            this.setCastProjectiles(false);
             this.setFightMode(false);
             this.setImmovable(false);
         }, 80);
@@ -682,7 +609,6 @@ public class EntityNamelessChampion extends EntityHeliosMobBase implements IAtta
 
     private final Consumer<EntityLivingBase> fly_aoe_attack = (target) -> {
       this.setFightMode(true);
-      this.setFlyAOE(true);
       animator.performAttack(ANIM_FLY_AOE);
       this.setImmovable(false);
       this.HoverTimeIncrease = 4;
@@ -717,14 +643,12 @@ public class EntityNamelessChampion extends EntityHeliosMobBase implements IAtta
       addEvent(()-> {
             this.flyCooldown = 20 * 20;
             this.setFightMode(false);
-            this.setFlyAOE(false);
             this.setImmovable(false);
       }, 95);
     };
 
     private final Consumer<EntityLivingBase> cast_greed = (target) -> {
       this.setFightMode(true);
-      this.setCastGreed(true);
       this.setImmovable(true);
       animator.performAttack(ANIM_CAST_GREED);
         this.playSound(ModSoundHandler.CHAMPION_SUCK, 3F, 1.0F);
@@ -755,13 +679,11 @@ public class EntityNamelessChampion extends EntityHeliosMobBase implements IAtta
 
       addEvent(()-> {
         this.setFightMode(false);
-        this.setCastGreed(false);
         this.setImmovable(false);
       }, 90);
     };
 
     private final Consumer<EntityLivingBase> stomp_attack = (target) -> {
-      this.setStomp(true);
       this.setImmovable(true);
       this.setFightMode(true);
       animator.performAttack(ANIM_STOMP);
@@ -779,14 +701,12 @@ public class EntityNamelessChampion extends EntityHeliosMobBase implements IAtta
       }, 20);
 
       addEvent(()-> {
-        this.setStomp(false);
         this.setImmovable(false);
         this.setFightMode(false);
       }, 45);
     };
 
     private final Consumer<EntityLivingBase> triple_stomp_attack = (target) -> {
-        this.setTripleStomp(true);
         this.setImmovable(true);
         this.setFightMode(true);
         animator.performAttack(ANIM_TRIPLE_STOMP);
@@ -831,14 +751,12 @@ public class EntityNamelessChampion extends EntityHeliosMobBase implements IAtta
 
         addEvent(()-> {
             this.tripleStompCooldown = 25 * 20;
-            this.setTripleStomp(false);
             this.setImmovable(false);
             this.setFightMode(false);
         }, 135);
     };
 
     private final Consumer<EntityLivingBase> fast_dash = (target) -> {
-      this.setDash(true);
       this.setImmovable(true);
       this.setFightMode(true);
       animator.performAttack(ANIM_DASH);
@@ -888,7 +806,6 @@ public class EntityNamelessChampion extends EntityHeliosMobBase implements IAtta
         }, 55);
 
       addEvent(()-> {
-        this.setDash(false);
         this.setImmovable(false);
         this.setFightMode(false);
       }, 60);
@@ -896,7 +813,6 @@ public class EntityNamelessChampion extends EntityHeliosMobBase implements IAtta
 
     //circle swing
     private final Consumer<EntityLivingBase> circle_swing = (target) -> {
-      this.setCircleSwing(true);
       this.setImmovable(true);
       this.setFightMode(true);
       animator.performAttack(ANIM_CIRCLE_SWING);
@@ -934,7 +850,6 @@ public class EntityNamelessChampion extends EntityHeliosMobBase implements IAtta
 
         addEvent(()-> {
             this.setImmovable(false);
-            this.setCircleSwing(false);
             this.setFightMode(false);
         }, 60);
     };
@@ -943,7 +858,6 @@ public class EntityNamelessChampion extends EntityHeliosMobBase implements IAtta
     private final Consumer<EntityLivingBase> overhead_swing = (target) -> {
       this.setImmovable(true);
       this.setFightMode(true);
-      this.setOverheadSwing(true);
       animator.performAttack(ANIM_OVERHEAD_SWING);
         addEvent(()-> this.playSound(ModSoundHandler.CHAMPION_ARMOR, 0.6f, 0.6f / (rand.nextFloat() * 0.4f + 0.2f)), 2);
         addEvent(()-> this.playSound(ModSoundHandler.CHAMPION_ARMOR, 0.6f, 0.6f / (rand.nextFloat() * 0.4f + 0.2f)), 40);
@@ -964,7 +878,6 @@ public class EntityNamelessChampion extends EntityHeliosMobBase implements IAtta
         }, 35);
 
         addEvent(()-> {
-            this.setOverheadSwing(false);
             this.setFightMode(false);
             this.setImmovable(false);
         }, 45);
@@ -974,7 +887,6 @@ public class EntityNamelessChampion extends EntityHeliosMobBase implements IAtta
     private final Consumer<EntityLivingBase> swing_attack = (target) -> {
         this.setImmovable(true);
         this.setFightMode(true);
-        this.setSwing(true);
         animator.performAttack(ANIM_SWING);
         addEvent(()-> this.playSound(ModSoundHandler.CHAMPION_ARMOR, 0.6f, 0.6f / (rand.nextFloat() * 0.4f + 0.2f)), 5);
         addEvent(()-> this.playSound(ModSoundHandler.CHAMPION_ARMOR, 0.6f, 0.6f / (rand.nextFloat() * 0.4f + 0.2f)), 40);
@@ -1037,7 +949,6 @@ public class EntityNamelessChampion extends EntityHeliosMobBase implements IAtta
         addEvent(()-> {
             this.setImmovable(false);
             this.setFightMode(false);
-            this.setSwing(false);
         }, 90);
     };
 

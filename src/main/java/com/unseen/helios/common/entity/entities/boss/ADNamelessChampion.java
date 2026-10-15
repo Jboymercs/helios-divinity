@@ -31,6 +31,9 @@ public class ADNamelessChampion {
         }
     }
 
+    public void sendTooWalk() {walkMode.sendForEntity(mob);}
+    public void sendTooIdle() {idleMode.sendForEntity(mob);}
+
     public void performAttack(String animationString) {
         AzCommand command = AzCommand.create(AnimationStrings.ATTACK_CONTROLLER, animationString, AzPlayBehaviors.PLAY_ONCE);
         command.sendForEntity(mob);
